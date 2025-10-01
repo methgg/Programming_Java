@@ -44,7 +44,7 @@ public class lab1{
             for (int j = 0; j < l.length; j++){
                     System.out.printf ("%10.5f ", l[i][j]);
                 }
-            }
             System.out.println();
+            }
     }
     }
