@@ -8,6 +8,6 @@ public class Pheromosa extends Pokemon{
         
         setStats(71, 137, 37, 137, 37, 151);
 
-        setMove(new IcePunch(), new PoisonJab());
+        setMove(new IcePunch(), new PoisonJab(), new HammerArm(), new Lunge());
     }
 }

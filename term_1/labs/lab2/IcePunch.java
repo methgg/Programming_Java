@@ -4,7 +4,9 @@ public final class IcePunch extends PhysicalMove{
     public IcePunch(){
         super(Type.ICE, 75, 100);
     }
+
+    @Override
     public String describe(){
-        return "использует Ice Punch!";
+        return "использует Ice Punch";
     }
 }
