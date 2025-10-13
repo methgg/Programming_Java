@@ -1,6 +1,6 @@
 import ru.ifmo.se.pokemon.*;
 
-public class Pheromosa extends Pokemon{
+public final class Pheromosa extends Pokemon{
     public Pheromosa(String name, int level){
         super(name, level);
 

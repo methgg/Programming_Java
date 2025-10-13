@@ -10,7 +10,7 @@ public final class Facade extends PhysicalMove{
         double basePower = super.calcBaseDamage(att, def);
         Status status = att.getCondition();
         if (status == Status.BURN || status == Status.PARALYZE || status == Status.POISON){
-            basePower *= 2;
+            basePower *= 2.0;
         }
 
         return basePower;
