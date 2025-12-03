@@ -12,10 +12,10 @@ public class Dog extends Animal{
     public void admireOwner(){
         Random rand = new Random();
         if (rand.nextBoolean()) {
-            System.out.println(name + "восхищается догадливостью " + owner.getName() + ".");
+            System.out.println(name + " восхищается догадливостью " + owner.getName() + ".");
         }
         else{
-            System.out.println(name + "сомневается в догадливости " + owner.getName() + ".");
+            System.out.println(name + " сомневается в догадливости " + owner.getName() + ".");
         }
     }
     
