@@ -1,6 +1,7 @@
 package lab3.humans;
 
 import java.util.Random;
+
 import lab3.enums.RunawayState;
 import lab3.environment.Bush;
 
@@ -23,7 +24,7 @@ public class Runaway extends Human{
 
     public void hide(){
         state = RunawayState.HIDING;
-        System.out.println(name + " остается прятаться в кустах " + bush.location() + "(" + bush.density() + ").");
+        System.out.println(name + " решает остаться прятаться в кустах " + bush.location() + "(" + bush.density() + ").");
     }
 
     public void move(Bush newbush){

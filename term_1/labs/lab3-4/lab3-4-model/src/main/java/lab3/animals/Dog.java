@@ -1,11 +1,13 @@
 package lab3.animals;
 
 import java.util.Random;
+
+import lab3.exceptions.NoOwnerException;
 import lab3.humans.Owner;
 
 public class Dog extends Animal{
 
-    private Owner owner;
+    private final Owner owner;
 
     public Dog(String name, String mood, Owner owner) {
         super(name, mood);
@@ -13,6 +15,10 @@ public class Dog extends Animal{
     }
 
     public void admireOwner(){
+        if(owner == null){
+            throw new NoOwnerException("У собаки нет хозяина!");
+        }
+
         Random rand = new Random();
         if (rand.nextBoolean()) {
             System.out.println(name + " восхищается догадливостью " + owner.getName() + ".");

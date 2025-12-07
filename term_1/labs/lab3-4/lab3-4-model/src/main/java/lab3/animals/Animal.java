@@ -1,6 +1,7 @@
 package lab3.animals;
 
 import java.util.Objects;
+
 import lab3.actions.Actionable;
 
 abstract class Animal implements Actionable{
@@ -33,6 +34,6 @@ abstract class Animal implements Actionable{
 
     @Override
     public String toString() {
-        return "Animal[name=" + name + ", mood =" + mood +"]";
+        return "Animal{name: " + name + ", mood: " + mood +"}";
     }
 }

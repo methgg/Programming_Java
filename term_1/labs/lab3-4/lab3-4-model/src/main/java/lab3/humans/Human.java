@@ -1,6 +1,7 @@
 package lab3.humans;
 
 import java.util.Objects;
+
 import lab3.actions.Actionable;
 
 public abstract class Human implements Actionable{
@@ -32,6 +33,6 @@ public abstract class Human implements Actionable{
 
     @Override
     public String toString(){
-        return "Human[name=" + name + "]";
+        return "Human{name: " + name + "}";
     }
 }
