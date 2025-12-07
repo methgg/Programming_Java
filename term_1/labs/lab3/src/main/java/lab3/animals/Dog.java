@@ -1,3 +1,7 @@
+package lab3.animals;
+
+import lab3.humans.Owner;
+
 import java.util.Random;
 
 public class Dog extends Animal{

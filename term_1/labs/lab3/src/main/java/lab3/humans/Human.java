@@ -1,3 +1,7 @@
+package lab3.humans;
+
+import lab3.actions.Actionable;
+
 import java.util.Objects;
 
 public abstract class Human implements Actionable{

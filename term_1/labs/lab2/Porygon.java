@@ -8,6 +8,6 @@ public class Porygon extends Pokemon{
 
         setStats(65, 60, 70, 85, 75, 40);
 
-        setMove();
+        setMove(new ZapCannon(), new Thunderbolt());
     }
 }

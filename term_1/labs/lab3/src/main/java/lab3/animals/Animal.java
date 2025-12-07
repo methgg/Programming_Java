@@ -1,3 +1,7 @@
+package lab3.animals;
+
+import lab3.actions.Actionable;
+
 import java.util.Objects;
 
 abstract class Animal implements Actionable{

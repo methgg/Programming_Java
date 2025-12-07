@@ -1,3 +1,8 @@
+package lab3.humans;
+
+import lab3.environment.Bush;
+import lab3.enums.RunawayState;
+
 import java.util.Random;
 
 public class Runaway extends Human{

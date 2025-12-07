@@ -1,3 +1,7 @@
+package lab3.humans;
+
+import lab3.enums.RunawayState;
+
 import java.util.ArrayList;
 
 public class Owner extends Human{

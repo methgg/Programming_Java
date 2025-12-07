@@ -1,5 +1,13 @@
+package lab3;
+
+import lab3.humans.*;
+import lab3.environment.*;
+import lab3.animals.*;
+import lab3.exceptions.*;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
         Owner mrMorkou = new Owner("Мистер Моркоу");
