@@ -1,0 +1,41 @@
+{
+  "1": {
+    "name": "The Rockets",
+    "coordinates": {"x": 100, "y": 50.5},
+    "numberOfParticipants": 5,
+    "genre": "RAP",
+    "frontMan": {
+      "name": "John Doe",
+      "birthday": "1990-05-12",
+      "height": 180,
+      "passportID": "AB123456",
+      "eyeColor": "BLACK"
+    }
+  },
+  "2": {
+    "name": "Blue Soul",
+    "coordinates": {"x": 200, "y": 150.0},
+    "numberOfParticipants": 8,
+    "genre": "SOUL",
+    "frontMan": {
+      "name": "Alice Smith",
+      "birthday": "1988-08-20",
+      "height": 165,
+      "passportID": "CD987654",
+      "eyeColor": "YELLOW"
+    }
+  },
+  "3": {
+    "name": "Math Beats",
+    "coordinates": {"x": 50, "y": 120.25},
+    "numberOfParticipants": 4,
+    "genre": "MATH_ROCK",
+    "frontMan": {
+      "name": "Bob Johnson",
+      "birthday": "1995-12-01",
+      "height": 175,
+      "passportID": "EF456789",
+      "eyeColor": "ORANGE"
+    }
+  }
+}

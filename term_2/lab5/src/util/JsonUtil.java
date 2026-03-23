@@ -1,0 +1,53 @@
+package util;
+
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import models.MusicBand;
+
+import java.io.*;
+import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * Утилиты для преобразования коллекции {@code MusicBand} в JSON и обратно.
+ */
+public class JsonUtil {
+
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .setPrettyPrinting()
+            .create();
+
+    public static LinkedHashMap<Long, MusicBand> readFromFile(String filename) {
+        LinkedHashMap<Long, MusicBand> map = new LinkedHashMap<>();
+        try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filename))) {
+            byte[] bytes = bis.readAllBytes();
+            String json = new String(bytes);
+
+            Type type = new TypeToken<LinkedHashMap<Long, MusicBand>>(){}.getType();
+            map = gson.fromJson(json, type);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден: " + filename + ". Коллекция будет пустой.");
+        } catch (IOException e) {
+            System.out.println("Ошибка при чтении файла: " + e.getMessage());
+        } catch (JsonSyntaxException e) {
+            System.out.println("Ошибка синтаксиса JSON: " + e.getMessage());
+        }
+
+        return map != null ? map : new LinkedHashMap<>();
+    }
+
+    public static void writeToFile(String filename, LinkedHashMap<Long, MusicBand> map) {
+        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filename));
+             OutputStreamWriter writer = new OutputStreamWriter(bos, StandardCharsets.UTF_8)) {
+            gson.toJson(map, writer);
+        } catch (IOException e) {
+            System.out.println("Ошибка при сохранении файла: " + e.getMessage());
+        }
+    }
+}
