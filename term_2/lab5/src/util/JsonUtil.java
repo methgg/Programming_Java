@@ -1,19 +1,25 @@
 package util;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import models.MusicBand;
-
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
-import java.nio.charset.StandardCharsets;
 
-/**
- * Утилиты для преобразования коллекции {@code MusicBand} в JSON и обратно.
- */
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+
+import models.MusicBand;
+
 public class JsonUtil {
 
     private static final Gson gson = new GsonBuilder()

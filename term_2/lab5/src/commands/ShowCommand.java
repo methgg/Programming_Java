@@ -2,9 +2,6 @@ package commands;
 
 import manager.CollectionManager;
 
-/**
- * Выводит содержимое коллекции в стандартный поток вывода.
- */
 public class ShowCommand implements Command {
     private CollectionManager cm;
     private String args;

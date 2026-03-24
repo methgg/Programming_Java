@@ -1,12 +1,12 @@
 package commands;
 
 import java.util.Scanner;
+
 import manager.CollectionManager;
 import models.MusicBand;
+import util.InputProvider;
+import util.ReadMusicBandFromUser;
 
-/**
- * Заменяет значение по ключу, если новый элемент больше старого
- */
 public class ReplaceIfGreaterCommand implements Command {
 
     private CollectionManager cm;
@@ -36,7 +36,8 @@ public class ReplaceIfGreaterCommand implements Command {
 
             System.out.println("Введите новый элемент:");
 
-            MusicBand newBand = InsertCommand.readMusicBandFromUser(scanner);
+            ReadMusicBandFromUser reader = new ReadMusicBandFromUser(scanner);
+            MusicBand newBand = reader.read();
 
             MusicBand oldBand = cm.getCollection().get(key);
 

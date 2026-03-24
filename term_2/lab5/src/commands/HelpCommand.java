@@ -1,8 +1,5 @@
 package commands;
 
-/**
- * Печатает список доступных команд.
- */
 public class HelpCommand implements Command {
     private String args;
     @Override 

@@ -1,16 +1,14 @@
 package util;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
-import java.time.LocalDate;
 
-/**
- * Gson-конвертер для сериализации/десериализации {@link LocalDate}.
- */
 public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
     @Override
@@ -18,7 +16,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
         if (value == null) {
             out.nullValue();
         } else {
-            out.value(value.toString()); // yyyy-MM-dd
+            out.value(value.toString()); 
         }
     }
 

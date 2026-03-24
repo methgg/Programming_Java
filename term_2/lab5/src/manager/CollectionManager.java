@@ -2,11 +2,9 @@ package manager;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+
 import models.MusicBand;
 
-/**
- * Управляет коллекцией {@link MusicBand}: добавление, удаление, вывод и получение размера.
- */
 public class CollectionManager {
     private final LinkedHashMap<Long, MusicBand> collection = new LinkedHashMap<>();
     private final LocalDateTime initializationDate = LocalDateTime.now();

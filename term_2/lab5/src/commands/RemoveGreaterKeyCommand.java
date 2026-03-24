@@ -1,14 +1,11 @@
 package commands;
 
-import manager.CollectionManager;
-import models.MusicBand;
-
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Удаляет из коллекции все элементы, чьи ключи больше заданного.
- */
+import manager.CollectionManager;
+import models.MusicBand;
+
 public class RemoveGreaterKeyCommand implements Command {
     private CollectionManager cm;
     private String args;

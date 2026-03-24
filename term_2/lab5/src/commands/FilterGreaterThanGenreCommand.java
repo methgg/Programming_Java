@@ -1,12 +1,8 @@
 package commands;
 
 import manager.CollectionManager;
-import models.MusicBand;
 import models.MusicGenre;
 
-/**
- * Печатает элементы, у которых genre больше заданного значения.
- */
 public class FilterGreaterThanGenreCommand implements Command {
     private CollectionManager cm;
     private String args;

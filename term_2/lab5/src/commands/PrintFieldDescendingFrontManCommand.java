@@ -1,14 +1,11 @@
 package commands;
 
-import manager.CollectionManager;
-import models.Person;
-import models.MusicBand;
-
 import java.util.Comparator;
 
-/**
- * Печатает поле {@code frontMan} всех элементов в порядке убывания.
- */
+import manager.CollectionManager;
+import models.MusicBand;
+import models.Person;
+
 public class PrintFieldDescendingFrontManCommand implements Command {
     private CollectionManager cm;
     private String args;
@@ -22,8 +19,6 @@ public class PrintFieldDescendingFrontManCommand implements Command {
     public void execute() {
         cm.getCollection().values().stream()
                 .map(MusicBand::getFrontMan)
-                // Требование: значения поля frontMan в порядке убывания.
-                // В качестве ключа используем имя фронтмена.
                 .sorted(Comparator.comparing((Person p) -> p.getName(), Comparator.nullsLast(String::compareTo)).reversed())
                 .forEach(System.out::println);
     }

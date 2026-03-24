@@ -3,12 +3,13 @@ package commands;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
+
 import manager.CollectionManager;
 import models.MusicBand;
+import util.InputProvider;
+import util.ReadMusicBandFromUser;
 
-/**
- * Удаляет все элементы коллекции, которые меньше заданного объекта.
- */
+
 public class RemoveLowerCommand implements Command {
     private CollectionManager cm;
     private String args;
@@ -24,8 +25,8 @@ public class RemoveLowerCommand implements Command {
     public void execute() {
         Scanner scanner = InputProvider.getScanner();
         System.out.println("Введите параметры элемента для сравнения:");
-        // Здесь можно использовать тот же код, что в InsertCommand, чтобы создать объект
-        MusicBand referenceBand = InsertCommand.readMusicBandFromUser(scanner);
+        ReadMusicBandFromUser reader = new ReadMusicBandFromUser(scanner);
+        MusicBand referenceBand = reader.read();
         Iterator<Map.Entry<Long, MusicBand>> it = cm.getCollection().entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Long, MusicBand> entry = it.next();

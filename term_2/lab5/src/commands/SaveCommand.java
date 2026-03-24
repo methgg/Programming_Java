@@ -3,9 +3,6 @@ package commands;
 import manager.CollectionManager;
 import util.JsonUtil;
 
-/**
- * Сохраняет текущую коллекцию в файл JSON.
- */
 public class SaveCommand implements Command {
     private CollectionManager cm;
     private String args;

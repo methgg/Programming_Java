@@ -1,16 +1,14 @@
 package models;
 
 import java.time.LocalDateTime;
+
 import util.IdGenerator;
 
-/**
- * Модель музыкальной группы, хранимая в коллекции.
- */
 public class MusicBand implements Comparable<MusicBand> {
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private final Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private final java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Integer numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
     private MusicGenre genre; //Поле не может быть null
     private Person frontMan; //Поле не может быть null
@@ -80,6 +78,26 @@ public class MusicBand implements Comparable<MusicBand> {
 
         public Person getFrontMan() {
             return frontMan;
+        }
+
+        public void setName (String name) {
+            this.name = name;
+        }
+
+        public void setCoordinates (Coordinates coordinates) {
+            this.coordinates = coordinates;
+        }
+
+        public void setNumberOfParticipants (Integer numberOfParticipants) {
+            this.numberOfParticipants = numberOfParticipants;
+        }
+        
+        public void setGenre (MusicGenre genre) {
+            this.genre = genre;
+        }
+
+        public void setFrontMan (Person frontMan) {
+            this.frontMan = frontMan;
         }
 
         @Override

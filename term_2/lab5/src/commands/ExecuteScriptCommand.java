@@ -1,19 +1,21 @@
 package commands;
 
-import manager.CollectionManager;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Читает команды из файла сценария и выполняет их в консольном режиме.
- */
+import manager.CollectionManager;
+import manager.CommandManager;
+import util.InputProvider;
+
 public class ExecuteScriptCommand implements Command {
     private final CollectionManager cm;
+    private final CommandManager commandManager;
     private String args;
 
-    public ExecuteScriptCommand(CollectionManager cm) { this.cm = cm; }
+    public ExecuteScriptCommand(CollectionManager cm, CommandManager commandManager) { 
+        this.cm = cm; 
+        this.commandManager = commandManager;
+    }
     @Override public void setArgs(String args) { this.args = args; }
 
     @Override
@@ -21,14 +23,13 @@ public class ExecuteScriptCommand implements Command {
         try (Scanner sc = new Scanner(new File(args))) {
             InputProvider.setScanner(sc);
             try {
-            Map<String, Command> commands = createCommands();
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
                 if (line.isEmpty()) continue;
 
                 System.out.println("> " + line);
                 String[] parts = line.split(" ", 2);
-                Command cmd = commands.get(parts[0]);
+                Command cmd = commandManager.getCommand(parts[0]);
 
                 if (cmd == null) {
                     System.out.println("Команда не найдена. Введите help");
@@ -46,24 +47,4 @@ public class ExecuteScriptCommand implements Command {
         }
     }
 
-    private Map<String, Command> createCommands() {
-        Map<String, Command> commands = new HashMap<>();
-        commands.put("help", new HelpCommand());
-        commands.put("info", new InfoCommand(cm));
-        commands.put("show", new ShowCommand(cm));
-        commands.put("insert", new InsertCommand(cm));
-        commands.put("update", new UpdateCommand(cm));
-        commands.put("remove_key", new RemoveKeyCommand(cm));
-        commands.put("clear", new ClearCommand(cm));
-        commands.put("save", new SaveCommand(cm));
-        commands.put("execute_script", new ExecuteScriptCommand(cm));
-        commands.put("exit", new ExitCommand());
-        commands.put("remove_lower", new RemoveLowerCommand(cm));
-        commands.put("replace_if_greater", new ReplaceIfGreaterCommand(cm));
-        commands.put("remove_greater_key", new RemoveGreaterKeyCommand(cm));
-        commands.put("count_greater_than_number_of_participants", new CountGreaterThanNumberOfParticipantsCommand(cm));
-        commands.put("filter_greater_than_genre", new FilterGreaterThanGenreCommand(cm));
-        commands.put("print_field_descending_front_man", new PrintFieldDescendingFrontManCommand(cm));
-        return commands;
-    }
 }

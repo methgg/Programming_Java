@@ -1,8 +1,4 @@
 package commands;
-
-/**
- * Завершает работу приложения.
- */
 public class ExitCommand implements Command {
     private String args;
 

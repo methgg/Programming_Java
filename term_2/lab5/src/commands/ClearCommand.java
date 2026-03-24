@@ -2,9 +2,6 @@ package commands;
 
 import manager.CollectionManager;
 
-/**
- * Очищает коллекцию.
- */
 public class ClearCommand implements Command {
     private CollectionManager cm;
     private String args;

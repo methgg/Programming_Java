@@ -1,8 +1,4 @@
 package models;
-
-/**
- * Координаты элемента (x, y) коллекции.
- */
 public class Coordinates {
     private Integer x;
     private Double y;

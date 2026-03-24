@@ -1,10 +1,6 @@
 package commands;
 
 import manager.CollectionManager;
-
-/**
- * Выводит информацию о коллекции: тип, дата инициализации и количество элементов.
- */
 public class InfoCommand implements Command {
     private String args;
 

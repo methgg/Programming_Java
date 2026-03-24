@@ -2,9 +2,6 @@ package commands;
 
 import manager.CollectionManager;
 
-/**
- * Удаляет элемент коллекции по ключу.
- */
 public class RemoveKeyCommand implements Command {
     private CollectionManager cm;
     private String args;

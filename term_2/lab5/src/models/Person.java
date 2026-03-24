@@ -1,8 +1,5 @@
 package models;
 
-/**
- * Модель фронтмена группы.
- */
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private java.time.LocalDate birthday; //Поле может быть null
@@ -56,6 +53,26 @@ public class Person {
 
     public Color getEyeColor() {
         return eyeColor;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthday (java.time.LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setHeight (Long height) {
+        this.height = height;
+    }
+
+    public void setPassportID (String passportID) {
+        this.passportID = passportID;
+    }
+
+    public void setColor (Color eyeColor) {
+        this.eyeColor = eyeColor;
     }
 
     @Override

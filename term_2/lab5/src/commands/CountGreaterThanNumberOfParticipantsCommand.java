@@ -2,9 +2,6 @@ package commands;
 
 import manager.CollectionManager;
 
-/**
- * Печатает количество элементов, у которых numberOfParticipants больше заданного числа.
- */
 public class CountGreaterThanNumberOfParticipantsCommand implements Command {
     private CollectionManager cm;
     private String args;
@@ -14,7 +11,9 @@ public class CountGreaterThanNumberOfParticipantsCommand implements Command {
     }
 
     @Override
-    public void setArgs(String args) { this.args = args; }
+    public void setArgs(String args) { 
+        this.args = args;
+    }
 
     @Override
     public void execute() {

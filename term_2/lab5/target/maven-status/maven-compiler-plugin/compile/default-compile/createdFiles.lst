@@ -8,13 +8,16 @@ manager/CollectionManager.class
 commands/ShowCommand.class
 commands/Command.class
 models/Color.class
+util/InputProvider.class
 commands/PrintFieldDescendingFrontManCommand.class
 commands/SaveCommand.class
 commands/ExecuteScriptCommand.class
 models/MusicGenre.class
 models/Person.class
 commands/ClearCommand.class
+manager/CommandManager.class
 util/JsonUtil.class
+util/ReadMusicBandFromUser.class
 commands/RemoveKeyCommand.class
 commands/ExitCommand.class
 util/JsonUtil$1.class
@@ -24,7 +27,6 @@ commands/HelpCommand.class
 commands/RemoveGreaterKeyCommand.class
 Invoker.class
 commands/ReplaceIfGreaterCommand.class
-commands/InputProvider.class
 commands/CountGreaterThanNumberOfParticipantsCommand.class
 util/LocalDateAdapter.class
 commands/FilterGreaterThanGenreCommand.class

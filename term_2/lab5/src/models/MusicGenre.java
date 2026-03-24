@@ -1,8 +1,5 @@
 package models;
 
-/**
- * Допустимые музыкальные жанры.
- */
 public enum MusicGenre {
     RAP,
     SOUL,
