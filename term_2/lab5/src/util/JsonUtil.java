@@ -56,4 +56,7 @@ public class JsonUtil {
             System.out.println("Ошибка при сохранении файла: " + e.getMessage());
         }
     }
+    public static Gson getGson() {
+        return gson;
+    }
 }

@@ -12,4 +12,9 @@ public class ExitCommand implements Command {
         System.out.println("Работа консольного приложения завершена");
         System.exit(0);
     }
+
+    @Override 
+    public String getDescription(){
+        return "завершить программу (без сохранения в файл)";
+    }
 }

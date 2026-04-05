@@ -35,4 +35,8 @@ public class UpdateCommand implements Command {
             System.out.println("Ошибка ввода: " + e.getMessage());
         }
     }
+    @Override 
+    public String getDescription(){
+        return "обновить значение элемента коллекции, id которого равен заданному";
+    }
 }

@@ -11,4 +11,8 @@ public class ClearCommand implements Command {
         cm.clear();
         System.out.println("Коллекция очищена.");
     }
+    @Override 
+    public String getDescription(){
+        return "очистить коллекцию";
+    }
 }

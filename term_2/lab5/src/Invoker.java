@@ -4,6 +4,7 @@ import commands.Command;
 import commands.ExecuteScriptCommand;
 import manager.CollectionManager;
 import manager.CommandManager;
+import util.IdGenerator;
 import util.InputProvider;
 
 
@@ -37,6 +38,9 @@ public class Invoker {
         String filename = System.getenv("COLLECTIONFILE");
         if (filename != null) {
             cm.getCollection().putAll(util.JsonUtil.readFromFile(filename));
+            cm.getCollection().forEach((key, band) -> band.setId(key));
+            long maxId = cm.getCollection().keySet().stream().mapToLong(Long::longValue).max().orElse(0);
+            IdGenerator.updateCurrentId(maxId);
         }
         Invoker invoker = new Invoker(cm);
         invoker.start();

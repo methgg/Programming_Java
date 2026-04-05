@@ -15,4 +15,8 @@ public class SaveCommand implements Command {
         JsonUtil.writeToFile(args, cm.getCollection());
         System.out.println("Коллекция сохранена в " + args);
     }
+    @Override 
+    public String getDescription(){
+        return "сохранить коллекцию в файл";
+    }
 }

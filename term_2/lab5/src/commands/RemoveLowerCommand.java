@@ -34,4 +34,8 @@ public class RemoveLowerCommand implements Command {
         }
         System.out.println("Все элементы меньше заданного удалены.");
     }
+    @Override 
+    public String getDescription(){
+        return "удалить из коллекции все элементы, меньшие, чем заданный";
+    }
 }

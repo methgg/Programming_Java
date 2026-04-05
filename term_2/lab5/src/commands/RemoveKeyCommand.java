@@ -17,4 +17,8 @@ public class RemoveKeyCommand implements Command {
             System.out.println("Элемент с ключом " + key + " удалён.");
         } catch (Exception e) { System.out.println("Некорректный ключ: " + args); }
     }
+    @Override 
+    public String getDescription(){
+        return "удалить элемент из коллекции по его ключу";
+    }
 }

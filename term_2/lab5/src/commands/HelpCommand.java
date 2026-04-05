@@ -1,17 +1,29 @@
 package commands;
 
+import java.util.Map;
+
+import manager.CommandManager;
+
 public class HelpCommand implements Command {
     private String args;
+    private CommandManager commandManager;
+    public HelpCommand(CommandManager commandManager)
+    {
+        this.commandManager = commandManager;
+    }
+
     @Override 
     public void setArgs(String args) {
          this.args = args; 
     }
 
     @Override public void execute() {
-        System.out.println("Доступные команды:\n" +
-                "help\ninsert\nupdate\nshow\nremove_key\nclear\nsave\nexecute_script\nexit\n" +
-                "remove_lower\nreplace_if_greater\nremove_greater_key\n" +
-                "count_greater_than_number_of_participants\nfilter_greater_than_genre\n" +
-                "print_field_descending_front_man");
+        System.out.println("Доступные команды:");
+        commandManager.getCommands().entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> System.out.println(entry.getKey()+ ":" + entry.getValue().getDescription()));
+                
+    }
+    @Override 
+    public String getDescription(){
+        return "вывести справку по доступным командам";
     }
 }

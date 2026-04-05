@@ -17,4 +17,8 @@ public class ShowCommand implements Command {
     public void execute() { 
         cm.show();
     }
+    @Override 
+    public String getDescription(){
+        return "вывести в стандартный поток вывода все элементы коллекции в строковом представлении";
+    }
 }

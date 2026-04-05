@@ -28,4 +28,8 @@ public class RemoveGreaterKeyCommand implements Command {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
+    @Override 
+    public String getDescription(){
+        return "удалить из коллекции все элементы, ключ которых превышает заданный";
+    }
 }

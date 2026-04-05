@@ -22,4 +22,8 @@ public class PrintFieldDescendingFrontManCommand implements Command {
                 .sorted(Comparator.comparing((Person p) -> p.getName(), Comparator.nullsLast(String::compareTo)).reversed())
                 .forEach(System.out::println);
     }
+    @Override 
+    public String getDescription(){
+        return "вывести значения поля frontMan всех элементов в порядке убывания";
+    }
 }

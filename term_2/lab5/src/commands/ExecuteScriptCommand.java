@@ -11,6 +11,7 @@ public class ExecuteScriptCommand implements Command {
     private final CollectionManager cm;
     private final CommandManager commandManager;
     private String args;
+    private static final java.util.Set<String> executingScripts = new java.util.HashSet<>();
 
     public ExecuteScriptCommand(CollectionManager cm, CommandManager commandManager) { 
         this.cm = cm; 
@@ -20,6 +21,12 @@ public class ExecuteScriptCommand implements Command {
 
     @Override
     public void execute() {
+        if (executingScripts.contains(args)){
+            System.out.println("Обнаружена рекурсия! Скрипт уже выполняется:" + args);
+        }
+
+        executingScripts.add(args);
+
         try (Scanner sc = new Scanner(new File(args))) {
             InputProvider.setScanner(sc);
             try {
@@ -44,7 +51,13 @@ public class ExecuteScriptCommand implements Command {
             }
         } catch (Exception e) {
             System.out.println("Ошибка скрипта: " + e.getMessage());
+        } finally {
+            executingScripts.remove(args);
         }
     }
-
+    
+    @Override 
+    public String getDescription(){
+        return "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме";
+    }
 }

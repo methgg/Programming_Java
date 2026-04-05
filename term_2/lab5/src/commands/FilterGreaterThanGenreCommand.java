@@ -21,4 +21,8 @@ public class FilterGreaterThanGenreCommand implements Command {
                     .forEach(System.out::println);
         } catch (Exception e) { System.out.println("Ошибка: " + e.getMessage()); }
     }
+    @Override 
+    public String getDescription(){
+        return "вывести элементы, значение поля genre которых больше заданного";
+    }
 }

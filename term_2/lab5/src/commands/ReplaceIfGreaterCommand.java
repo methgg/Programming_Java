@@ -52,4 +52,8 @@ public class ReplaceIfGreaterCommand implements Command {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
+    @Override 
+    public String getDescription(){
+        return "заменить значение по ключу, если новое значение больше старого";
+    }
 }

@@ -23,7 +23,6 @@ public class CommandManager {
     private final HashMap<String, Command> commands = new HashMap<>();
 
      public CommandManager(CollectionManager cm) {
-        commands.put("help", new HelpCommand());
         commands.put("info", new InfoCommand(cm));
         commands.put("show", new ShowCommand(cm));
         commands.put("insert", new InsertCommand(cm));
@@ -38,6 +37,7 @@ public class CommandManager {
         commands.put("count_greater_than_number_of_participants", new CountGreaterThanNumberOfParticipantsCommand(cm));
         commands.put("filter_greater_than_genre", new FilterGreaterThanGenreCommand(cm));
         commands.put("print_field_descending_front_man", new PrintFieldDescendingFrontManCommand(cm));
+        commands.put("help", new HelpCommand(this));
 
     }
 

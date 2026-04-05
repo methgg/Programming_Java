@@ -25,4 +25,9 @@ public class CountGreaterThanNumberOfParticipantsCommand implements Command {
             System.out.println("Количество элементов с numberOfParticipants > " + number + ": " + count);
         } catch (Exception e) { System.out.println("Ошибка: " + e.getMessage()); }
     }
+
+    @Override 
+    public String getDescription(){
+        return "вывести количество элементов, значение поля numberOfParticipants которых больше заданного";
+    }
 }

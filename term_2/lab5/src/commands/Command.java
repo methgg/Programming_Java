@@ -7,4 +7,5 @@ package commands;
 public interface Command {
     void setArgs(String args);
     void execute();
+    String getDescription();
 }

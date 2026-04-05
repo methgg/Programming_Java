@@ -20,6 +20,7 @@ util/JsonUtil.class
 util/ReadMusicBandFromUser.class
 commands/RemoveKeyCommand.class
 commands/ExitCommand.class
+util/ScriptParser.class
 util/JsonUtil$1.class
 models/MusicBand.class
 commands/UpdateCommand.class

@@ -1,15 +1,19 @@
 help
 help
-insert 6
-math heroes
-34
-34
-6
-SOUL
-Harry
+insert 6 {
+  "id": 5,
+  "name": "ergrg",
+  "coordinates": { "x": 4, "y": 4.0 },
+  "creationDate": "2026-04-05T19:33:34.876146003",
+  "numberOfParticipants": 4,
+  "genre": "SOUL",
+  "frontMan": {
+    "name": "sfs",
+    "birthday": null,
+    "height": null,
+    "passportID": "354",
+    "eyeColor": null
+  }
+}
 
 
-5656
-BLACK
-info
-count_greater_than_number_of_participants 3
