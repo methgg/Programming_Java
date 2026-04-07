@@ -1,8 +1,12 @@
 package commands;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Scanner;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import manager.CommandManager;
 import util.InputProvider;
@@ -11,7 +15,7 @@ public class ExecuteScriptCommand implements Command {
     private final CollectionManager cm;
     private final CommandManager commandManager;
     private String args;
-    private static final java.util.Set<String> executingScripts = new java.util.HashSet<>();
+    private static final Set<String> executingScripts = new HashSet<>();
 
     public ExecuteScriptCommand(CollectionManager cm, CommandManager commandManager) { 
         this.cm = cm; 
@@ -21,38 +25,48 @@ public class ExecuteScriptCommand implements Command {
 
     @Override
     public void execute() {
-        if (executingScripts.contains(args)){
-            System.out.println("Обнаружена рекурсия! Скрипт уже выполняется:" + args);
+        String scriptPath;
+        try {
+            scriptPath = new File(args).getCanonicalPath();
+        } catch (IOException e) {
+            System.out.println(ErrorMessages.scriptError(e.getMessage()));
+            return;
         }
 
-        executingScripts.add(args);
+        if (executingScripts.contains(scriptPath)) {
+            System.out.println(ErrorMessages.SCRIPT_RECURSION + scriptPath);
+            return;
+        }
 
-        try (Scanner sc = new Scanner(new File(args))) {
+        executingScripts.add(scriptPath);
+        Scanner previousScanner = InputProvider.getScanner();
+
+        try (Scanner sc = new Scanner(new File(scriptPath))) {
             InputProvider.setScanner(sc);
             try {
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine().trim();
-                if (line.isEmpty()) continue;
+                while (sc.hasNextLine()) {
+                    String line = sc.nextLine().trim();
+                    if (line.isEmpty()) continue;
 
-                System.out.println("> " + line);
-                String[] parts = line.split(" ", 2);
-                Command cmd = commandManager.getCommand(parts[0]);
+                    System.out.println("> " + line);
+                    String[] parts = line.split(" ", 2);
+                    Command cmd = commandManager.getCommand(parts[0]);
 
-                if (cmd == null) {
-                    System.out.println("Команда не найдена. Введите help");
-                    continue;
+                    if (cmd == null) {
+                        System.out.println(ErrorMessages.UNKNOWN_COMMAND);
+                        continue;
+                    }
+
+                    cmd.setArgs(parts.length > 1 ? parts[1] : "");
+                    cmd.execute();
                 }
-
-                cmd.setArgs(parts.length > 1 ? parts[1] : "");
-                cmd.execute();
-            }
             } finally {
-                InputProvider.clear();
+                InputProvider.setScanner(previousScanner);
             }
         } catch (Exception e) {
-            System.out.println("Ошибка скрипта: " + e.getMessage());
+            System.out.println(ErrorMessages.scriptError(e.getMessage()));
         } finally {
-            executingScripts.remove(args);
+            executingScripts.remove(scriptPath);
         }
     }
     

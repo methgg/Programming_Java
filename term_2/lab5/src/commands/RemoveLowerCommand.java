@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
 import util.InputProvider;
@@ -24,7 +25,7 @@ public class RemoveLowerCommand implements Command {
     @Override
     public void execute() {
         Scanner scanner = InputProvider.getScanner();
-        System.out.println("Введите параметры элемента для сравнения:");
+        System.out.println(ErrorMessages.COMPARE_REFERENCE_PROMPT);
         ReadMusicBandFromUser reader = new ReadMusicBandFromUser(scanner);
         MusicBand referenceBand = reader.read();
         Iterator<Map.Entry<Long, MusicBand>> it = cm.getCollection().entrySet().iterator();
@@ -32,7 +33,7 @@ public class RemoveLowerCommand implements Command {
             Map.Entry<Long, MusicBand> entry = it.next();
             if (entry.getValue().compareTo(referenceBand) < 0) it.remove();
         }
-        System.out.println("Все элементы меньше заданного удалены.");
+        System.out.println(ErrorMessages.REMOVE_LOWER_DONE);
     }
     @Override 
     public String getDescription(){

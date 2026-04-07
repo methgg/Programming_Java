@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 
 public class ClearCommand implements Command {
@@ -9,7 +10,7 @@ public class ClearCommand implements Command {
     @Override public void setArgs(String args) { this.args = args; }
     @Override public void execute() {
         cm.clear();
-        System.out.println("Коллекция очищена.");
+        System.out.println(ErrorMessages.COLLECTION_CLEARED);
     }
     @Override 
     public String getDescription(){

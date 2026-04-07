@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import util.JsonUtil;
 
@@ -11,9 +12,9 @@ public class SaveCommand implements Command {
 
     @Override
     public void execute() {
-        if (args.isEmpty()) { System.out.println("Укажите имя файла."); return; }
+        if (args.isEmpty()) { System.out.println(ErrorMessages.commandError("save", ErrorMessages.FILE_NAME_REQUIRED)); return; }
         JsonUtil.writeToFile(args, cm.getCollection());
-        System.out.println("Коллекция сохранена в " + args);
+        System.out.println(ErrorMessages.savedToFile(args));
     }
     @Override 
     public String getDescription(){

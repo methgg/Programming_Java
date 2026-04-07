@@ -2,6 +2,7 @@ package commands;
 
 import java.util.Scanner;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
 import util.InputProvider;
@@ -28,13 +29,13 @@ public class ReplaceIfGreaterCommand implements Command {
             Long key = Long.parseLong(args.trim());
 
             if (!cm.getCollection().containsKey(key)) {
-                System.out.println("Элемент с таким ключом не найден");
+                System.out.println(ErrorMessages.elementNotFound(key));
                 return;
             }
 
             Scanner scanner = InputProvider.getScanner();
 
-            System.out.println("Введите новый элемент:");
+            System.out.println(ErrorMessages.NEW_ELEMENT_PROMPT);
 
             ReadMusicBandFromUser reader = new ReadMusicBandFromUser(scanner);
             MusicBand newBand = reader.read();
@@ -43,13 +44,15 @@ public class ReplaceIfGreaterCommand implements Command {
 
             if (newBand.compareTo(oldBand) > 0) {
                 cm.getCollection().put(key, newBand);
-                System.out.println("Элемент заменён");
+                System.out.println(ErrorMessages.ELEMENT_REPLACED);
             } else {
-                System.out.println("Новый элемент не больше старого. Замена не выполнена.");
+                System.out.println(ErrorMessages.NEW_ELEMENT_NOT_GREATER);
             }
 
+        } catch (NumberFormatException e) {
+            System.out.println(ErrorMessages.commandError("replace_if_greater", ErrorMessages.INVALID_KEY));
         } catch (Exception e) {
-            System.out.println("Ошибка: " + e.getMessage());
+            System.out.println(ErrorMessages.commandError("replace_if_greater", e.getMessage()));
         }
     }
     @Override 

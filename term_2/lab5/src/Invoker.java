@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import commands.Command;
 import commands.ExecuteScriptCommand;
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import manager.CommandManager;
 import util.IdGenerator;
@@ -29,7 +30,7 @@ public class Invoker {
             if (cmd != null) {
                 cmd.setArgs(parts.length > 1 ? parts[1] : "");
                 cmd.execute();
-            } else System.out.println("Команда не найдена. Введите help");
+            } else System.out.println(ErrorMessages.UNKNOWN_COMMAND);
         }
     }
 

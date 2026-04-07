@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicGenre;
 
@@ -19,7 +20,9 @@ public class FilterGreaterThanGenreCommand implements Command {
             cm.getCollection().values().stream()
                     .filter(b -> b.getGenre().ordinal() > genre.ordinal())
                     .forEach(System.out::println);
-        } catch (Exception e) { System.out.println("Ошибка: " + e.getMessage()); }
+        } catch (IllegalArgumentException e) {
+            System.out.println(ErrorMessages.commandError("filter_greater_than_genre", ErrorMessages.INVALID_GENRE));
+        }
     }
     @Override 
     public String getDescription(){

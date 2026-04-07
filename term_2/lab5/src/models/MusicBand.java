@@ -2,7 +2,10 @@ package models;
 
 import java.time.LocalDateTime;
 
+import exceptions.ErrorMessages;
+import exceptions.ValidationException;
 import util.IdGenerator;
+import util.JsonUtil;
 
 public class MusicBand implements Comparable<MusicBand> {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -15,26 +18,26 @@ public class MusicBand implements Comparable<MusicBand> {
 
     public MusicBand(String name, Coordinates coordinates, Integer numberOfParticipants, MusicGenre genre, Person frontMan) {
         if (name == null) {
-            throw new IllegalArgumentException("Имя не может быть null");
+            throw new ValidationException(ErrorMessages.BAND_NAME_NULL);
         }
 
         if (name.equals("")) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
+            throw new ValidationException(ErrorMessages.BAND_NAME_EMPTY);
         }
 
         if (coordinates == null) {
-            throw new IllegalArgumentException("Координаты не могут быть null");
+            throw new ValidationException(ErrorMessages.COORDINATES_NULL);
         }
         if (numberOfParticipants == null || numberOfParticipants <= 0) {
-            throw new IllegalArgumentException("Количество участников должно быть больше 0");
+            throw new ValidationException(ErrorMessages.PARTICIPANTS_INVALID);
         }
 
         if (genre == null) {
-            throw new IllegalArgumentException("Жанр не может быть null");
+            throw new ValidationException(ErrorMessages.GENRE_NULL);
         }
 
         if (frontMan == null) {
-            throw new IllegalArgumentException("FrontMan не может быть null");
+            throw new ValidationException(ErrorMessages.FRONTMAN_NULL);
         }
 
         this.id = IdGenerator.generateId();
@@ -102,6 +105,10 @@ public class MusicBand implements Comparable<MusicBand> {
 
         public void setId(Long id) {
             this.id = id;
+        }
+
+        public String toJson() {
+            return JsonUtil.getGson().toJson(this);
         }
 
         @Override

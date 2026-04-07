@@ -1,5 +1,8 @@
 package models;
 
+import exceptions.ErrorMessages;
+import exceptions.ValidationException;
+
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private java.time.LocalDate birthday; //Поле может быть null
@@ -9,23 +12,23 @@ public class Person {
 
     public Person(String name, java.time.LocalDate birthday, Long height, String passportID, Color eyeColor) {
         if (name == null) {
-            throw new IllegalArgumentException("Имя не может быть null");
+            throw new ValidationException(ErrorMessages.PERSON_NAME_NULL);
         }
 
         if (name.equals("")) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
+            throw new ValidationException(ErrorMessages.PERSON_NAME_EMPTY);
         }
 
         if (height != null && height <= 0) {
-            throw new IllegalArgumentException("Рост должен быть больше 0");
+            throw new ValidationException(ErrorMessages.HEIGHT_INVALID);
         }
 
         if (passportID == null){
-            throw new IllegalArgumentException("PassportID не может быть null");
+            throw new ValidationException(ErrorMessages.PASSPORT_NULL);
         }
 
         if (passportID.equals("")) {
-            throw new IllegalArgumentException("PassportID не может быть пустым");
+            throw new ValidationException(ErrorMessages.PASSPORT_EMPTY);
         }
 
         this.name = name;

@@ -3,6 +3,7 @@ package commands;
 import java.util.Map;
 
 import manager.CommandManager;
+import exceptions.ErrorMessages;
 
 public class HelpCommand implements Command {
     private String args;
@@ -18,7 +19,7 @@ public class HelpCommand implements Command {
     }
 
     @Override public void execute() {
-        System.out.println("Доступные команды:");
+        System.out.println(ErrorMessages.AVAILABLE_COMMANDS);
         commandManager.getCommands().entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> System.out.println(entry.getKey()+ ":" + entry.getValue().getDescription()));
                 
     }

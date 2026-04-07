@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 
 public class RemoveKeyCommand implements Command {
@@ -14,8 +15,10 @@ public class RemoveKeyCommand implements Command {
         try {
             long key = Long.parseLong(args.trim());
             cm.remove(key);
-            System.out.println("Элемент с ключом " + key + " удалён.");
-        } catch (Exception e) { System.out.println("Некорректный ключ: " + args); }
+            System.out.println(ErrorMessages.removedByKey(key));
+        } catch (NumberFormatException e) {
+            System.out.println(ErrorMessages.commandError("remove_key", ErrorMessages.INVALID_KEY));
+        }
     }
     @Override 
     public String getDescription(){

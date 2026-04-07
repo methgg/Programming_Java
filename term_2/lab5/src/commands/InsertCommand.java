@@ -3,12 +3,13 @@ package commands;
 
 import java.util.Scanner;
 
+import exceptions.CommandException;
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
 import util.InputProvider;
 import util.JsonUtil;
 import util.ReadMusicBandFromUser;
-import util.ScriptParser;
 
 public class InsertCommand implements Command {
 
@@ -33,7 +34,10 @@ public class InsertCommand implements Command {
 
 
             if (parts.length > 1) {
-                band = JsonUtil.getGson().fromJson(ScriptParser.convertToJson(parts[1]), MusicBand.class);
+                band = JsonUtil.getGson().fromJson(parts[1], MusicBand.class);
+                if (band == null) {
+                    throw new CommandException(ErrorMessages.INSERT_PARSE_ERROR);
+                }
                 band.setId(key);
             } else {
                 Scanner scanner = InputProvider.getScanner();
@@ -42,10 +46,12 @@ public class InsertCommand implements Command {
 
             cm.insert(key, band);
 
-            System.out.println("Элемент успешно добавлен");
+            System.out.println(ErrorMessages.ELEMENT_ADDED);
 
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.out.println(ErrorMessages.commandError("insert", ErrorMessages.INVALID_KEY));
         } catch (Exception e) {
-            System.out.println("Ошибка команды insert: " + e.getMessage());
+            System.out.println(ErrorMessages.commandError("insert", e.getMessage()));
         }
     }
 

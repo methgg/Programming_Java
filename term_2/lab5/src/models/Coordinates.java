@@ -1,19 +1,23 @@
 package models;
+
+import exceptions.ErrorMessages;
+import exceptions.ValidationException;
+
 public class Coordinates {
     private Integer x;
     private Double y;
 
     public Coordinates(Integer x, Double y){
         if (x == null) {
-            throw new IllegalArgumentException("Координата x не может быть null");
+            throw new ValidationException(ErrorMessages.COORDINATE_X_NULL);
         }
 
         if (y == null) {
-            throw new IllegalArgumentException("Координата y не может быть null");
+            throw new ValidationException(ErrorMessages.COORDINATE_Y_NULL);
         }
 
         if (y > 525) {
-            throw new IllegalArgumentException("Координата y не может превышать 525");
+            throw new ValidationException(ErrorMessages.COORDINATE_Y_TOO_LARGE);
         }
 
         this.x = x;

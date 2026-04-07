@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 
 public class CountGreaterThanNumberOfParticipantsCommand implements Command {
@@ -22,8 +23,10 @@ public class CountGreaterThanNumberOfParticipantsCommand implements Command {
             long count = cm.getCollection().values().stream()
                     .filter(b -> b.getNumberOfParticipants() > number)
                     .count();
-            System.out.println("Количество элементов с numberOfParticipants > " + number + ": " + count);
-        } catch (Exception e) { System.out.println("Ошибка: " + e.getMessage()); }
+            System.out.println(ErrorMessages.countGreaterThanParticipants(number, count));
+        } catch (NumberFormatException e) {
+            System.out.println(ErrorMessages.commandError("count_greater_than_number_of_participants", ErrorMessages.INVALID_NUMBER));
+        }
     }
 
     @Override 

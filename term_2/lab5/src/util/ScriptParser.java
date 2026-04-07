@@ -3,22 +3,26 @@ package util;
 public class ScriptParser {
 
     public static String convertToJson(String input) {
-        
-    input = input.trim();
-    if (input.startsWith("{") && input.endsWith("}")) {
-        input = input.substring(1, input.length() - 1);
-    }
+        input = input.trim();
 
-    input = input.replace("=", ":");
+        if (input.startsWith("MusicBand")) {
+            input = input.substring("MusicBand".length()).trim();
+        }
 
-    input = input.replaceAll("(\\w+)\\s*:", "\"$1\":");
+        if (input.startsWith("{") && input.endsWith("}")) {
+            input = input.substring(1, input.length() - 1);
+        }
 
-    input = input.replace("'", "\"");
+        input = input.replace("=", ":");
 
-   
-    input = input.replaceAll("Coordinates\\s*\\{", "{");
-    input = input.replaceAll("Person\\s*\\{", "{");
+        input = input.replaceAll("(\\w+)\\s*:", "\"$1\":");
 
-    return "{" + input + "}";
+        input = input.replace("'", "\"");
+
+        input = input.replaceAll("MusicBand\\s*\\{", "{");
+        input = input.replaceAll("Coordinates\\s*\\{", "{");
+        input = input.replaceAll("Person\\s*\\{", "{");
+
+        return "{" + input + "}";
     }
 }

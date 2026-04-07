@@ -3,6 +3,7 @@ package commands;
 import java.util.Iterator;
 import java.util.Map;
 
+import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
 
@@ -23,9 +24,9 @@ public class RemoveGreaterKeyCommand implements Command {
                 Map.Entry<Long, MusicBand> entry = it.next();
                 if (entry.getKey() > key) it.remove();
             }
-            System.out.println("Элементы с ключами больше " + key + " удалены.");
-        } catch (Exception e) {
-            System.out.println("Ошибка: " + e.getMessage());
+            System.out.println(ErrorMessages.removedGreaterKeys(key));
+        } catch (NumberFormatException e) {
+            System.out.println(ErrorMessages.commandError("remove_greater_key", ErrorMessages.INVALID_KEY));
         }
     }
     @Override 

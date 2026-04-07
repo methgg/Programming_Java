@@ -1,4 +1,7 @@
 package commands;
+
+import exceptions.ErrorMessages;
+
 public class ExitCommand implements Command {
     private String args;
 
@@ -9,7 +12,7 @@ public class ExitCommand implements Command {
 
     @Override
     public void execute() {
-        System.out.println("Работа консольного приложения завершена");
+        System.out.println(ErrorMessages.APP_EXIT);
         System.exit(0);
     }
 

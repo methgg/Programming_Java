@@ -3,6 +3,7 @@ package manager;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 
+import exceptions.ErrorMessages;
 import models.MusicBand;
 
 public class CollectionManager {
@@ -19,7 +20,7 @@ public class CollectionManager {
 
     public void show() {
         if (collection.isEmpty()) {
-            System.out.println("Коллекция пуста.");
+            System.out.println(ErrorMessages.COLLECTION_EMPTY);
         } else {
             collection.forEach((k, v) -> System.out.println(k + " -> " + v));
         }
@@ -41,4 +42,3 @@ public class CollectionManager {
         return initializationDate;
     }
 }
-

@@ -1,9 +1,11 @@
 commands/InsertCommand.class
 commands/InfoCommand.class
 models/Coordinates.class
+exceptions/ErrorMessages.class
 util/LocalDateTimeAdapter.class
 util/IdGenerator.class
 commands/RemoveLowerCommand.class
+exceptions/CommandException.class
 manager/CollectionManager.class
 commands/ShowCommand.class
 commands/Command.class
@@ -22,6 +24,7 @@ commands/RemoveKeyCommand.class
 commands/ExitCommand.class
 util/ScriptParser.class
 util/JsonUtil$1.class
+exceptions/ValidationException.class
 models/MusicBand.class
 commands/UpdateCommand.class
 commands/HelpCommand.class
