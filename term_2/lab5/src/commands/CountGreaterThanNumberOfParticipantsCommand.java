@@ -3,6 +3,10 @@ package commands;
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
 
+/**
+ * Класс, который реализует команду, которая выводит количество элементов, значение поля numberOfParticipants которых больше заданного
+ */
+
 public class CountGreaterThanNumberOfParticipantsCommand implements Command {
     private CollectionManager cm;
     private String args;

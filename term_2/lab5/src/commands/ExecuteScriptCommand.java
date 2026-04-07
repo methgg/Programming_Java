@@ -3,13 +3,17 @@ package commands;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Scanner;
+import java.util.Set;
 
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import manager.CommandManager;
 import util.InputProvider;
+
+/**
+ * Класс, который реализует команду, которая считывает и исполняет скрипт из указанного файла.
+ */
 
 public class ExecuteScriptCommand implements Command {
     private final CollectionManager cm;

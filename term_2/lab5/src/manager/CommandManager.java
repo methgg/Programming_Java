@@ -19,6 +19,9 @@ import commands.SaveCommand;
 import commands.ShowCommand;
 import commands.UpdateCommand;
 
+/**
+ * Класс менеджер комманд, содержащий все команды и их описания
+ */
 public class CommandManager {
     private final HashMap<String, Command> commands = new HashMap<>();
 

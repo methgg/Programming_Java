@@ -2,6 +2,9 @@ package commands;
 
 import exceptions.ErrorMessages;
 
+/**
+ * Класс, который реализует команду, которая звершает работу программы
+ */
 public class ExitCommand implements Command {
     private String args;
 

@@ -10,7 +10,9 @@ import models.MusicBand;
 import util.InputProvider;
 import util.ReadMusicBandFromUser;
 
-
+/**
+ * Класс, который реализует команду, которая удаляет из коллекции все элементы, меньшие чем заданный
+ */
 public class RemoveLowerCommand implements Command {
     private CollectionManager cm;
     private String args;

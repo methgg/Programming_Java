@@ -9,6 +9,9 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
+/**
+ * Класс, который адаптирует формат времени даты
+ */
 public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;

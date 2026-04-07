@@ -8,7 +8,9 @@ import manager.CommandManager;
 import util.IdGenerator;
 import util.InputProvider;
 
-
+/**
+ * Класс, который запускает программу
+ */
 public class Invoker {
     private CommandManager commandManager;
 
@@ -16,7 +18,15 @@ public class Invoker {
         this.commandManager = new CommandManager(cm);
         commandManager.register("execute_script", new ExecuteScriptCommand(cm, commandManager));
     }
-
+    /**
+     * Метод, запускающий программу
+     *
+     * Подробное описание (если нужно)
+     *
+     * @param sc Сканнер для вводов пользователя
+     * @param line Переменная, которая принимает строку
+     * @param cmd Переменная для команды
+     */
     public void start() {
         Scanner sc = new Scanner(System.in);
         InputProvider.setScanner(sc);

@@ -8,7 +8,9 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
-
+/**
+ * Класс, который адаптирует формат даты
+ */
 public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
     @Override

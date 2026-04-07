@@ -6,6 +6,9 @@ import manager.CollectionManager;
 import models.MusicBand;
 import models.Person;
 
+/**
+ * Класс, который выводит значения поля frontMan всех элементов в порядке убывания
+ */
 public class PrintFieldDescendingFrontManCommand implements Command {
     private CollectionManager cm;
     private String args;

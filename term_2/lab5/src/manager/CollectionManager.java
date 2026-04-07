@@ -6,6 +6,9 @@ import java.util.LinkedHashMap;
 import exceptions.ErrorMessages;
 import models.MusicBand;
 
+/**
+ * Класс - менеджер коллекции, реализующий основные методы
+ */
 public class CollectionManager {
     private final LinkedHashMap<Long, MusicBand> collection = new LinkedHashMap<>();
     private final LocalDateTime initializationDate = LocalDateTime.now();

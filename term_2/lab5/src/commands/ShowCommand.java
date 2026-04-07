@@ -2,6 +2,11 @@ package commands;
 
 import manager.CollectionManager;
 
+
+
+/**
+ * Класс, который реализует команду, которая выводит коллекцию
+ */
 public class ShowCommand implements Command {
     private CollectionManager cm;
     private String args;

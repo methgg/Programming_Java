@@ -2,6 +2,10 @@ package util;
 
 import java.util.Scanner;
 
+/**
+ * Класс для установки сканнера
+ *
+ */
 public final class InputProvider {
     private static final ThreadLocal<Scanner> CURRENT = new ThreadLocal<>();
 

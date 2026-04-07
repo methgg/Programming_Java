@@ -2,8 +2,12 @@ package commands;
 
 import java.util.Map;
 
-import manager.CommandManager;
 import exceptions.ErrorMessages;
+import manager.CommandManager;
+
+/**
+ * Класс, который реализует команду, которая выводит список коммнад и их описание
+ */
 
 public class HelpCommand implements Command {
     private String args;

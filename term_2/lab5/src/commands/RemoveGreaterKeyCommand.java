@@ -7,6 +7,10 @@ import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
 
+
+/**
+ * Класс, который удаляет из коллекции все элементы, ключ которых превышает заданный
+ */
 public class RemoveGreaterKeyCommand implements Command {
     private CollectionManager cm;
     private String args;

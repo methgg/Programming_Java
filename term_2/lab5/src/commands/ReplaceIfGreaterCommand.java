@@ -8,6 +8,11 @@ import models.MusicBand;
 import util.InputProvider;
 import util.ReadMusicBandFromUser;
 
+
+
+/**
+ * Класс, который реализует команду, которая заменяет значение по ключу, если новое значение больше старого
+ */
 public class ReplaceIfGreaterCommand implements Command {
 
     private CollectionManager cm;

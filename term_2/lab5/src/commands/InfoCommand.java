@@ -1,6 +1,10 @@
 package commands;
 
 import manager.CollectionManager;
+
+/**
+ * Класс, который реализует команду, которая выводит информацию о коллекции
+ */
 public class InfoCommand implements Command {
     private String args;
 

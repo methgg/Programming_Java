@@ -21,6 +21,9 @@ import com.google.gson.reflect.TypeToken;
 import exceptions.ErrorMessages;
 import models.MusicBand;
 
+/**
+ * Класс для записи в файл и чтения из файла формата Json
+ */
 public class JsonUtil {
 
     private static final Gson gson = new GsonBuilder()

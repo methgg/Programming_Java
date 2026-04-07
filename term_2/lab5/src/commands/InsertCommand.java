@@ -11,6 +11,9 @@ import util.InputProvider;
 import util.JsonUtil;
 import util.ReadMusicBandFromUser;
 
+/**
+ * Класс, который реализует команду, которая добавляет новый элемент в коллекцию с заданным ключом
+ */
 public class InsertCommand implements Command {
 
     private CollectionManager cm;

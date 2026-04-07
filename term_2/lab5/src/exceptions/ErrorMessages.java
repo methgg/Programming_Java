@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * Класс, содержащий сообщения команд
+ */
 public final class ErrorMessages {
     private ErrorMessages() {
     }

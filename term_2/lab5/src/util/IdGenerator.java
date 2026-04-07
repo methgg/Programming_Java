@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * Класс для генерации ID 
+ */
 public class IdGenerator {
     private static long currentId = 1;
 

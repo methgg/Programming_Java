@@ -4,6 +4,9 @@ import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicGenre;
 
+/**
+ * Класс, который реализует команду, которая выводит элементы, значение поля genre которых больше заданного
+ */
 public class FilterGreaterThanGenreCommand implements Command {
     private CollectionManager cm;
     private String args;

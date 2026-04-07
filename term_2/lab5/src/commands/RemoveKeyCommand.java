@@ -3,6 +3,9 @@ package commands;
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
 
+/**
+ * Класс, который реализует команду, которая удаляет команду по ключу
+ */
 public class RemoveKeyCommand implements Command {
     private CollectionManager cm;
     private String args;

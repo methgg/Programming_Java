@@ -4,6 +4,11 @@ import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import util.JsonUtil;
 
+
+
+/**
+ * Класс, который реализует команду, которая сохранят коллекцию в файл
+ */
 public class SaveCommand implements Command {
     private CollectionManager cm;
     private String args;
