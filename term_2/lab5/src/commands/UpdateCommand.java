@@ -1,5 +1,6 @@
 package commands;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import exceptions.ErrorMessages;
@@ -21,19 +22,24 @@ public class UpdateCommand implements Command {
     @Override
     public void execute() {
         try {
-            long key = Long.parseLong(args.trim());
-            if (!cm.getCollection().containsKey(key)) {
-                System.out.println(ErrorMessages.elementNotFound(key));
+            long id = Long.parseLong(args.trim());
+            ArrayList<Long> listV = new ArrayList<>();
+            ArrayList<Long> listK = new ArrayList<>();
+            cm.getCollection().forEach((k, v) -> listV.add(v.getId()));
+            cm.getCollection().forEach((k, v) -> listK.add(k));
+            if (!listV.contains(id)) {
+                System.out.println(ErrorMessages.elementWithIdNotFound(id));
                 return;
             }
             Scanner scanner = InputProvider.getScanner();
             ReadMusicBandFromUser reader = new ReadMusicBandFromUser(scanner);
             MusicBand newBand = reader.read();
-            cm.getCollection().put(key, newBand);
-            System.out.println(ErrorMessages.updatedByKey(key));
+            newBand.setId(id);
+            cm.getCollection().put(listK.get(listV.indexOf(id)), newBand);
+            System.out.println(ErrorMessages.updatedById(id));
 
         } catch (NumberFormatException e) {
-            System.out.println(ErrorMessages.commandError("update", ErrorMessages.INVALID_KEY));
+            System.out.println(ErrorMessages.commandError("update", ErrorMessages.INVALID_ID));
         } catch (Exception e) {
             System.out.println(ErrorMessages.commandError("update", e.getMessage()));
         }

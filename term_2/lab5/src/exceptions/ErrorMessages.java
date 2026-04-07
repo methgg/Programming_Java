@@ -18,6 +18,7 @@ public final class ErrorMessages {
     public static final String NEW_ELEMENT_NOT_GREATER = "Новый элемент не больше старого. Замена не выполнена.";
     public static final String REMOVE_LOWER_DONE = "Все элементы меньше заданного удалены.";
     public static final String INVALID_KEY = "Ключ должен быть целым числом.";
+    public static final String INVALID_ID = "ID должен быть целым положительным числом.";
     public static final String INVALID_NUMBER = "Значение должно быть целым числом.";
     public static final String INVALID_GENRE = "Некорректный жанр.";
     public static final String INVALID_DATE = "Некорректный формат даты.";
@@ -70,12 +71,20 @@ public final class ErrorMessages {
         return "Элемент с ключом " + key + " не найден.";
     }
 
+    public static String elementWithIdNotFound(long id) {
+        return "Элемент с ID " + id + " не найден.";
+    }
+
     public static String removedByKey(long key) {
         return "Элемент с ключом " + key + " удален.";
     }
 
     public static String updatedByKey(long key) {
         return "Элемент с ключом " + key + " обновлен.";
+    }
+
+     public static String updatedById(long id) {
+        return "Элемент с ID " + id + " обновлен.";
     }
 
     public static String removedGreaterKeys(long key) {
