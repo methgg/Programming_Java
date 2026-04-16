@@ -22,10 +22,10 @@ util/JsonUtil.class
 util/ReadMusicBandFromUser.class
 commands/RemoveKeyCommand.class
 commands/ExitCommand.class
-util/ScriptParser.class
 util/JsonUtil$1.class
 exceptions/ValidationException.class
 commands/ShowEvenCommand.class
+util/ConsoleReader.class
 models/MusicBand.class
 commands/UpdateCommand.class
 commands/HelpCommand.class
