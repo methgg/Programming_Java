@@ -15,6 +15,7 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/commands/ReplaceIfGreaterCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/commands/SaveCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/commands/ShowCommand.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/commands/ShowEvenCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/commands/UpdateCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/exceptions/CommandException.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/exceptions/ErrorMessages.java

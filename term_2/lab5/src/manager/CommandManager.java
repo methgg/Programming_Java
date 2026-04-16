@@ -17,6 +17,7 @@ import commands.RemoveLowerCommand;
 import commands.ReplaceIfGreaterCommand;
 import commands.SaveCommand;
 import commands.ShowCommand;
+import commands.ShowEvenCommand;
 import commands.UpdateCommand;
 
 /**
@@ -40,6 +41,7 @@ public class CommandManager {
         commands.put("count_greater_than_number_of_participants", new CountGreaterThanNumberOfParticipantsCommand(cm));
         commands.put("filter_greater_than_genre", new FilterGreaterThanGenreCommand(cm));
         commands.put("print_field_descending_front_man", new PrintFieldDescendingFrontManCommand(cm));
+        commands.put("show_even", new ShowEvenCommand(cm));
         commands.put("help", new HelpCommand(this));
 
     }

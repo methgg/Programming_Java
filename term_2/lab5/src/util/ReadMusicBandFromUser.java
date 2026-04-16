@@ -10,7 +10,9 @@ import models.MusicBand;
 import models.MusicGenre;
 import models.Person;
 
-
+/**
+ * Класс, читающий все значения для ключей модели MusicBand от пользователя
+ */
 public class ReadMusicBandFromUser{
     private final Scanner scanner;
 
