@@ -1,0 +1,1 @@
+insert 6 {"name":"Nirvana","coordinates":{"x":1,"y":2.0},"numberOfParticipants":3,"genre":"ROCK","frontMan":{"name":"Kurt","birthday":"1967-02-20","height":175,"passportID":"A12345","eyeColor":"BLACK"}}
