@@ -1,11 +1,8 @@
 package commands;
 
-import java.util.Scanner;
-
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
-import util.InputProvider;
 import util.ReadMusicBandFromUser;
 
 
@@ -38,11 +35,9 @@ public class ReplaceIfGreaterCommand implements Command {
                 return;
             }
 
-            Scanner scanner = InputProvider.getScanner();
-
             System.out.println(ErrorMessages.NEW_ELEMENT_PROMPT);
 
-            ReadMusicBandFromUser reader = new ReadMusicBandFromUser(scanner);
+            ReadMusicBandFromUser reader = new ReadMusicBandFromUser();
             MusicBand newBand = reader.read();
 
             MusicBand oldBand = cm.getCollection().get(key);

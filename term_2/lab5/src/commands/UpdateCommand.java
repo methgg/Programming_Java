@@ -1,12 +1,10 @@
 package commands;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
-import util.InputProvider;
 import util.ReadMusicBandFromUser;
 
 
@@ -35,8 +33,7 @@ public class UpdateCommand implements Command {
                 System.out.println(ErrorMessages.elementWithIdNotFound(id));
                 return;
             }
-            Scanner scanner = InputProvider.getScanner();
-            ReadMusicBandFromUser reader = new ReadMusicBandFromUser(scanner);
+            ReadMusicBandFromUser reader = new ReadMusicBandFromUser();
             MusicBand newBand = reader.read();
             newBand.setId(id);
             cm.getCollection().put(listK.get(listV.indexOf(id)), newBand);

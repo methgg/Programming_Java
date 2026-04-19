@@ -27,6 +27,17 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/models/MusicBand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/models/MusicGenre.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/models/Person.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/CommandRequest.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/CommandResponse.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/CommandType.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/arguments/GenreArgument.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/arguments/IdArgument.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/arguments/InsertArgument.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/arguments/KeyArgument.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/arguments/MusicBandArgument.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/arguments/NumberOfParticipantsArgument.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/network/arguments/UpdateArgument.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/server/ServerCommandProcessor.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/util/ConsoleReader.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/util/IdGenerator.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab5/src/util/InputProvider.java

@@ -49,6 +49,10 @@ public class ConsoleReader{
                 runStty("sane");
             }
         }
+
+    public static String readLine(String prompt) throws IOException, InterruptedException {
+        return readLineWithTabCompletion(prompt, Set.of());
+    }
     
     private static void redraw(String prompt, String text) {
         System.out.print("\r\033[2K" + prompt + text);

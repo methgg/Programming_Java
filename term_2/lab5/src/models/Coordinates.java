@@ -1,9 +1,12 @@
 package models;
 
+import java.io.Serializable;
+
 import exceptions.ErrorMessages;
 import exceptions.ValidationException;
 
-public class Coordinates {
+public class Coordinates implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer x;
     private Double y;
 

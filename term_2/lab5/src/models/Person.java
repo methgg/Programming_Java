@@ -1,9 +1,12 @@
 package models;
 
+import java.io.Serializable;
+
 import exceptions.ErrorMessages;
 import exceptions.ValidationException;
 
-public class Person {
+public class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String name; //Поле не может быть null, Строка не может быть пустой
     private java.time.LocalDate birthday; //Поле может быть null
     private Long height; //Поле может быть null, Значение поля должно быть больше 0

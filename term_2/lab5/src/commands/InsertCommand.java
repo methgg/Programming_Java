@@ -1,13 +1,9 @@
 package commands;
 
-
-import java.util.Scanner;
-
 import exceptions.CommandException;
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
-import util.InputProvider;
 import util.JsonUtil;
 import util.ReadMusicBandFromUser;
 
@@ -43,8 +39,7 @@ public class InsertCommand implements Command {
                 }
                 band.setId(key);
             } else {
-                Scanner scanner = InputProvider.getScanner();
-                band = new ReadMusicBandFromUser(scanner).read();
+                band = new ReadMusicBandFromUser().read();
             }
 
             cm.insert(key, band);

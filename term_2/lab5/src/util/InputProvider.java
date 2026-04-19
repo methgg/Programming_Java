@@ -24,6 +24,26 @@ public final class InputProvider {
         return sc;
     }
 
+    public static Scanner getCurrentScanner() {
+        return CURRENT.get();
+    }
+
+    public static String readLine(String prompt) {
+        Scanner sc = CURRENT.get();
+        if (sc != null) {
+            if (prompt != null && !prompt.isEmpty()) {
+                System.out.print(prompt);
+            }
+            return sc.nextLine();
+        }
+
+        try {
+            return ConsoleReader.readLine(prompt);
+        } catch (Exception e) {
+            throw new RuntimeException("Ошибка чтения ввода: " + e.getMessage(), e);
+        }
+    }
+
     public static void clear() {
         CURRENT.remove();
     }
