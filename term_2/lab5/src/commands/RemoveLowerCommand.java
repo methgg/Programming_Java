@@ -2,12 +2,10 @@ package commands;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
 
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import models.MusicBand;
-import util.InputProvider;
 import util.ReadMusicBandFromUser;
 
 /**
@@ -26,9 +24,8 @@ public class RemoveLowerCommand implements Command {
 
     @Override
     public void execute() {
-        Scanner scanner = InputProvider.getScanner();
         System.out.println(ErrorMessages.COMPARE_REFERENCE_PROMPT);
-        ReadMusicBandFromUser reader = new ReadMusicBandFromUser(scanner);
+        ReadMusicBandFromUser reader = new ReadMusicBandFromUser();
         MusicBand referenceBand = reader.read();
         Iterator<Map.Entry<Long, MusicBand>> it = cm.getCollection().entrySet().iterator();
         while (it.hasNext()) {

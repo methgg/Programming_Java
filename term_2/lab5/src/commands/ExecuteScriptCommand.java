@@ -43,7 +43,7 @@ public class ExecuteScriptCommand implements Command {
         }
 
         executingScripts.add(scriptPath);
-        Scanner previousScanner = InputProvider.getScanner();
+        Scanner previousScanner = InputProvider.getCurrentScanner();
 
         try (Scanner sc = new Scanner(new File(scriptPath))) {
             InputProvider.setScanner(sc);
@@ -65,7 +65,11 @@ public class ExecuteScriptCommand implements Command {
                     cmd.execute();
                 }
             } finally {
-                InputProvider.setScanner(previousScanner);
+                if (previousScanner != null) {
+                    InputProvider.setScanner(previousScanner);
+                } else {
+                    InputProvider.clear();
+                }
             }
         } catch (Exception e) {
             System.out.println(ErrorMessages.scriptError(e.getMessage()));

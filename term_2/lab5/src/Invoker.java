@@ -1,12 +1,10 @@
-import java.util.Scanner;
-
 import commands.Command;
 import commands.ExecuteScriptCommand;
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
 import manager.CommandManager;
+import util.ConsoleReader;
 import util.IdGenerator;
-import util.InputProvider;
 
 /**
  * Класс, который запускает программу
@@ -20,11 +18,17 @@ public class Invoker {
     }
     
     public void start() {
-        Scanner sc = new Scanner(System.in);
-        InputProvider.setScanner(sc);
         while (true) {
-            System.out.print("> ");
-            String line = sc.nextLine();
+            String line;
+            try {
+                line = ConsoleReader.readLineWithTabCompletion("> ", commandManager.getCommands().keySet());
+            } catch (Exception e) {
+                System.out.println(ErrorMessages.commandError("input", e.getMessage()));
+                continue;
+            }
+            if (line == null) {
+                break;
+            }
             if (line.isEmpty()) continue;
 
             String[] parts = line.split(" ", 2);

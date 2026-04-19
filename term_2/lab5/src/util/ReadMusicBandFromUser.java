@@ -1,7 +1,6 @@
 package util;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
 import exceptions.ErrorMessages;
 import models.Color;
@@ -14,17 +13,11 @@ import models.Person;
  * Класс, читающий все значения для ключей модели MusicBand от пользователя
  */
 public class ReadMusicBandFromUser{
-    private final Scanner scanner;
-
-    public ReadMusicBandFromUser(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     public MusicBand read() {
         String name;
         while (true) {
-            System.out.print("Введите имя группы: ");
-            name = scanner.nextLine();
+            name = InputProvider.readLine("Введите имя группы: ");
             if (name != null && !name.trim().isEmpty()) {
                 break;
             }
@@ -33,9 +26,8 @@ public class ReadMusicBandFromUser{
 
         Integer x;
         while (true) {
-            System.out.print("Введите координату X: ");
             try {
-                x = Integer.parseInt(scanner.nextLine());
+                x = Integer.parseInt(InputProvider.readLine("Введите координату X: "));
                 break;
             } catch (NumberFormatException e) {
                 System.out.println(ErrorMessages.INPUT_COORDINATE_X);
@@ -44,9 +36,8 @@ public class ReadMusicBandFromUser{
 
         Double y;
         while (true) {
-            System.out.print("Введите координату Y (<=525): ");
             try {
-                y = Double.parseDouble(scanner.nextLine());
+                y = Double.parseDouble(InputProvider.readLine("Введите координату Y (<=525): "));
                 if (y <= 525) break;
                 else System.out.println(ErrorMessages.COORDINATE_Y_TOO_LARGE);
             } catch (NumberFormatException e) {
@@ -58,9 +49,8 @@ public class ReadMusicBandFromUser{
 
         Integer participants;
         while (true) {
-            System.out.print("Введите количество участников (>0): ");
             try {
-                participants = Integer.parseInt(scanner.nextLine());
+                participants = Integer.parseInt(InputProvider.readLine("Введите количество участников (>0): "));
                 if (participants > 0) break;
                 else System.out.println(ErrorMessages.PARTICIPANTS_INVALID);
             } catch (NumberFormatException e) {
@@ -74,9 +64,8 @@ public class ReadMusicBandFromUser{
             for (MusicGenre g : MusicGenre.values()) {
                 System.out.println(g);
             }
-            System.out.print("Введите жанр: ");
             try {
-                genre = MusicGenre.valueOf(scanner.nextLine().toUpperCase());
+                genre = MusicGenre.valueOf(InputProvider.readLine("Введите жанр: ").toUpperCase());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(ErrorMessages.INVALID_GENRE);
@@ -85,16 +74,14 @@ public class ReadMusicBandFromUser{
 
         String frontName;
         while (true) {
-            System.out.print("Введите имя фронтмена: ");
-            frontName = scanner.nextLine();
+            frontName = InputProvider.readLine("Введите имя фронтмена: ");
             if (frontName != null && !frontName.trim().isEmpty()) break;
             System.out.println(ErrorMessages.PERSON_NAME_EMPTY);
         }
 
         LocalDate birthday = null;
         while (true) {
-            System.out.print("Введите дату рождения (yyyy-mm-dd) или пустую строку: ");
-            String birth = scanner.nextLine();
+            String birth = InputProvider.readLine("Введите дату рождения (yyyy-mm-dd) или пустую строку: ");
             if (birth.isEmpty()) {
                 break;
             }
@@ -108,8 +95,7 @@ public class ReadMusicBandFromUser{
         
         Long height = null;
         while (true) {
-            System.out.print("Введите рост или пустую строку: ");
-            String heightStr = scanner.nextLine();
+            String heightStr = InputProvider.readLine("Введите рост или пустую строку: ");
             if (heightStr.isEmpty()) break;
             try {
                 height = Long.parseLong(heightStr);
@@ -122,8 +108,7 @@ public class ReadMusicBandFromUser{
 
         String passport;
         while (true) {
-            System.out.print("Введите passportID: ");
-            passport = scanner.nextLine();
+            passport = InputProvider.readLine("Введите passportID: ");
             if (passport != null && !passport.trim().isEmpty()) break;
             System.out.println(ErrorMessages.PASSPORT_EMPTY);
         }
@@ -131,7 +116,7 @@ public class ReadMusicBandFromUser{
         Color eyeColor = null;
         while (true) {
             System.out.println("Цвет глаз (BLACK, YELLOW, ORANGE) или пустая строка:");
-            String colorStr = scanner.nextLine();
+            String colorStr = InputProvider.readLine("");
             if (colorStr.isEmpty()) break;
             try {
                 eyeColor = Color.valueOf(colorStr.toUpperCase());
