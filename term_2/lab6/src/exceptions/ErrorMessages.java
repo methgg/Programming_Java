@@ -101,4 +101,17 @@ public final class ErrorMessages {
     public static String countGreaterThanParticipants(int number, long count) {
         return "Количество элементов с numberOfParticipants > " + number + ": " + count;
     }
+
+    public static String unsupportedClientCommand(String commandName) {
+    return "Команда пока не поддерживается клиентом: " + commandName;
+    }
+
+    public static String missingArgument(String commandName) {
+        return "Не указан аргумент команды " + commandName + ".";
+    }
+
+    public static String inputError(String details) {
+    return "Ошибка ввода: " + details;
+    }
+
 }

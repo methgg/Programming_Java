@@ -1,8 +1,11 @@
-import commands.Command;
-import commands.ExecuteScriptCommand;
+import client.ClientCommandManager;
+import client.ClientCommandParser;
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
-import manager.CommandManager;
+import network.CommandRequest;
+import network.CommandResponse;
+import server.ServerCommandManager;
+import server.ServerCommandProcessor;
 import util.ConsoleReader;
 import util.IdGenerator;
 
@@ -10,33 +13,50 @@ import util.IdGenerator;
  * Класс, который запускает программу
  */
 public class Invoker {
-    private CommandManager commandManager;
+    private final ClientCommandManager clientCommandManager;
+    private final ClientCommandParser clientCommandParser;
+    private final ServerCommandProcessor serverCommandProcessor;
+
 
     public Invoker(CollectionManager cm) {
-        this.commandManager = new CommandManager(cm);
-        commandManager.register("execute_script", new ExecuteScriptCommand(cm, commandManager));
+        this.clientCommandManager = new ClientCommandManager();
+        this.clientCommandParser = new ClientCommandParser(clientCommandManager);
+
+        ServerCommandManager serverCommandManager = new ServerCommandManager(cm);
+        this.serverCommandProcessor = new ServerCommandProcessor(serverCommandManager);
     }
     
     public void start() {
         while (true) {
             String line;
+
             try {
-                line = ConsoleReader.readLineWithTabCompletion("> ", commandManager.getCommands().keySet());
+                line = ConsoleReader.readLineWithTabCompletion("> ", clientCommandManager.getCommandNames());
             } catch (Exception e) {
-                System.out.println(ErrorMessages.commandError("input", e.getMessage()));
+                System.out.println(ErrorMessages.inputError(e.getMessage()));
                 continue;
             }
             if (line == null) {
                 break;
             }
-            if (line.isEmpty()) continue;
+            if (line.isEmpty()) {
+                continue;
+            }
 
-            String[] parts = line.split(" ", 2);
-            Command cmd = commandManager.getCommand(parts[0]);
-            if (cmd != null) {
-                cmd.setArgs(parts.length > 1 ? parts[1] : "");
-                cmd.execute();
-            } else System.out.println(ErrorMessages.UNKNOWN_COMMAND);
+            try {
+                CommandRequest request = clientCommandParser.parse(line);
+                CommandResponse response = serverCommandProcessor.process(request);
+                if (response.getMessage() != null && !response.getMessage().isEmpty()) {
+                    System.out.println(response.getMessage());
+                }
+
+                if (request.getCommandType() == network.CommandType.EXIT) {
+                    break;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+                
         }
     }
 

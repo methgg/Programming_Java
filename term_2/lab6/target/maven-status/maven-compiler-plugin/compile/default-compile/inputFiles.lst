@@ -1,4 +1,6 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab6/src/Invoker.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab6/src/client/ClientCommandManager.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab6/src/client/ClientCommandParser.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab6/src/commands/Command.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab6/src/commands/ExecuteScriptCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab6/src/commands/ExitCommand.java
