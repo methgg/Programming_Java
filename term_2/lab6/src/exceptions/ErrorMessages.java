@@ -101,4 +101,38 @@ public final class ErrorMessages {
     public static String countGreaterThanParticipants(int number, long count) {
         return "Количество элементов с numberOfParticipants > " + number + ": " + count;
     }
+
+    public static String unsupportedClientCommand(String commandName) {
+    return "Команда пока не поддерживается клиентом: " + commandName;
+    }
+
+    public static String missingArgument(String commandName) {
+        return "Не указан аргумент команды " + commandName + ".";
+    }
+
+    public static String inputError(String details) {
+    return "Ошибка ввода: " + details;
+    }
+
+    public static String invalidRequest() {
+    return "Некорректный запрос.";
+    }
+
+    public static String commandExecutionError(String details) {
+        return "Ошибка выполнения команды: " + details;
+    }
+
+    public static String scannerNotInitialized() {
+        return "Сканер не установлен. Сначала вызовите setScanner.";
+    }
+
+    public static String inputReadError(String details) {
+        return "Ошибка чтения ввода: " + details;
+    }
+
+    public static String terminalSetupError(String details) {
+        return "Ошибка настройки терминала: " + details;
+    }
+
+
 }
