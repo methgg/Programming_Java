@@ -1,12 +1,19 @@
 package client;
 
+import exceptions.CommandException;
 import exceptions.ErrorMessages;
+import models.MusicBand;
 import models.MusicGenre;
 import network.CommandRequest;
 import network.CommandType;
 import network.arguments.GenreArgument;
+import network.arguments.InsertArgument;
 import network.arguments.KeyArgument;
+import network.arguments.MusicBandArgument;
 import network.arguments.NumberOfParticipantsArgument;
+import network.arguments.UpdateArgument;
+import util.JsonUtil;
+import util.ReadMusicBandFromUser;
 
 public class ClientCommandParser {
     private final ClientCommandManager commandManager;
@@ -60,6 +67,81 @@ public class ClientCommandParser {
                     throw new IllegalArgumentException(ErrorMessages.commandError(commandName, ErrorMessages.INVALID_GENRE));
                 }
 
+            case INSERT:
+                if(args.isEmpty()) {
+                    throw new IllegalArgumentException(ErrorMessages.missingArgument(commandName));
+                }   
+                String[] insertParts = args.split(" ", 2);
+                Long key = Long.valueOf(insertParts[0]); 
+
+                MusicBand band;
+                if (insertParts.length > 1) {
+                    band = JsonUtil.getGson().fromJson(insertParts[1], MusicBand.class);
+                    if (band == null) {
+                        throw new CommandException(ErrorMessages.INSERT_PARSE_ERROR);
+                    }
+                }
+                else {
+                    band = new ReadMusicBandFromUser().read();
+                }
+
+                return new CommandRequest(type, new InsertArgument(key, band));
+
+            case UPDATE:
+                if(args.isEmpty()) {
+                    throw new IllegalArgumentException(ErrorMessages.missingArgument(commandName));
+                } 
+                String[] updateParts = args.split(" ", 2);
+                Long id = Long.valueOf(updateParts[0]);
+
+                MusicBand updatedBand;
+                if (updateParts.length > 1) {
+                    updatedBand = JsonUtil.getGson().fromJson(updateParts[1], MusicBand.class);
+                    if (updatedBand == null) {
+                        throw new CommandException(ErrorMessages.INSERT_PARSE_ERROR);
+                    }
+                }
+                else {
+                    updatedBand = new ReadMusicBandFromUser().read();
+                }
+                return new CommandRequest(type, new UpdateArgument(id, updatedBand));
+
+            case REMOVE_LOWER:
+                MusicBand referenceBand;
+
+                if (!args.isEmpty()) {
+                    referenceBand = JsonUtil.getGson().fromJson(args, MusicBand.class);
+                    if (referenceBand == null) {
+                        throw new CommandException(ErrorMessages.INSERT_PARSE_ERROR);
+                    }
+                } else {
+                    referenceBand = new ReadMusicBandFromUser().read();
+                }
+
+                return new CommandRequest(type, new MusicBandArgument(referenceBand));
+
+            case REPLACE_IF_GREATER:
+                if (args.isEmpty()) {
+                    throw new IllegalArgumentException(ErrorMessages.missingArgument(commandName));
+                }
+
+                String[] replaceParts = args.split(" ", 2);
+                Long replaceKey = Long.valueOf(replaceParts[0]);
+
+                MusicBand newBand;
+
+                if (replaceParts.length > 1) {
+                    newBand = JsonUtil.getGson().fromJson(replaceParts[1], MusicBand.class);
+                    if (newBand == null) {
+                        throw new CommandException(ErrorMessages.INSERT_PARSE_ERROR);
+                    }
+                } else {
+                    newBand = new ReadMusicBandFromUser().read();
+                }
+
+                return new CommandRequest(type, new InsertArgument(replaceKey, newBand));
+
+            
             default:
                 throw new IllegalArgumentException(ErrorMessages.unsupportedClientCommand(commandName));
         }

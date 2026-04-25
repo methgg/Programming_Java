@@ -26,6 +26,7 @@ public class ClientCommandManager {
         commands.put("filter_greater_than_genre", CommandType.FILTER_GREATER_THAN_GENRE);
         commands.put("print_field_descending_front_man", CommandType.PRINT_FIELD_DESCENDING_FRONT_MAN);
         commands.put("show_even", CommandType.SHOW_EVEN);
+        commands.put("execute_script", null);
     }
 
     public CommandType getCommandType(String name) {

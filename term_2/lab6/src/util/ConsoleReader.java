@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import exceptions.ErrorMessages;
+
+
 public class ConsoleReader{
     public static String readLineWithTabCompletion(String prompt, Set<String> commands) throws IOException, InterruptedException{
         runStty("-icanon -echo"); // -icannon отключает построчный ввод, читаем посимвольно -echo отключает автовывод набранных символов терминалом
@@ -61,7 +64,8 @@ public class ConsoleReader{
 
     private static void runStty(String args) throws IOException, InterruptedException {
         Process p = new ProcessBuilder("sh", "-c", "stty " + args + " < /dev/tty").start();
-        if (p.waitFor() != 0) throw new IOException("stty failed: " + args);
+        if (p.waitFor() != 0) throw new IOException(ErrorMessages.terminalSetupError(args));
+
     }
     }
 

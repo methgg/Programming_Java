@@ -14,7 +14,8 @@ public class ServerCommandProcessor {
 
     public CommandResponse process(CommandRequest request) {
         if (request == null || request.getCommandType() == null) {
-            return new CommandResponse(false, "Некорректный запрос.", null);
+            return new CommandResponse(false, ErrorMessages.invalidRequest(), null);
+
         }
 
         ServerCommand command = commandManager.getCommand(request.getCommandType());
@@ -26,7 +27,7 @@ public class ServerCommandProcessor {
         try {
             return command.execute(request);
         } catch (Exception e) {
-            return new CommandResponse(false, "Ошибка выполнения команды: " + e.getMessage(), null);
+            return new CommandResponse(false, ErrorMessages.commandExecutionError(e.getMessage()), null);
         }
     }
 }
