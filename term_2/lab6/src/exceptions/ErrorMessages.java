@@ -133,6 +133,9 @@ public final class ErrorMessages {
     public static String terminalSetupError(String details) {
         return "Ошибка настройки терминала: " + details;
     }
+    public static String serverUnavailable(String details) {
+        return "Сервер временно недоступен: " + details;
+    }
 
 
 }

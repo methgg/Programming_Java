@@ -15,7 +15,6 @@ public class ServerCommandProcessor {
     public CommandResponse process(CommandRequest request) {
         if (request == null || request.getCommandType() == null) {
             return new CommandResponse(false, ErrorMessages.invalidRequest(), null);
-
         }
 
         ServerCommand command = commandManager.getCommand(request.getCommandType());

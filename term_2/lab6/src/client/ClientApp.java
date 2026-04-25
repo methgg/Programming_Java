@@ -7,11 +7,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 import exceptions.ErrorMessages;
-import manager.CollectionManager;
 import network.CommandRequest;
 import network.CommandResponse;
-import server.ServerCommandManager;
-import server.ServerCommandProcessor;
 import util.ConsoleReader;
 
 
@@ -21,16 +18,16 @@ import util.ConsoleReader;
 public class ClientApp {
     private final ClientCommandManager clientCommandManager;
     private final ClientCommandParser clientCommandParser;
-    private final ServerCommandProcessor serverCommandProcessor;
+    private final RequestSender requestSender;
+
     private final Set<String> activeScripts = new HashSet<>();
 
-    public ClientApp(CollectionManager cm) {
+    public ClientApp(RequestSender requestSender) {
         this.clientCommandManager = new ClientCommandManager();
         this.clientCommandParser = new ClientCommandParser(clientCommandManager);
-
-        ServerCommandManager serverCommandManager = new ServerCommandManager(cm);
-        this.serverCommandProcessor = new ServerCommandProcessor(serverCommandManager);
+        this.requestSender = requestSender;
     }
+
     
     public void start() {
         while (true) {
@@ -48,8 +45,6 @@ public class ClientApp {
             if (line.isEmpty()) {
                 continue;
             }
-
-            
 
             if (executeCommandLine(line)) {
                 break;
@@ -95,7 +90,8 @@ public class ClientApp {
         }
         try {
             CommandRequest request = clientCommandParser.parse(line);
-            CommandResponse response = serverCommandProcessor.process(request);
+            CommandResponse response = requestSender.send(request);
+
 
             if (response.getMessage() != null && !response.getMessage().isEmpty()) {
                 System.out.println(response.getMessage());
