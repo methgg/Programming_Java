@@ -1,7 +1,11 @@
 {
   "1": {
+    "id": 1,
     "name": "The Rockets",
-    "coordinates": {"x": 100, "y": 50.5},
+    "coordinates": {
+      "x": 100,
+      "y": 50.5
+    },
     "numberOfParticipants": 5,
     "genre": "RAP",
     "frontMan": {
@@ -13,8 +17,12 @@
     }
   },
   "2": {
+    "id": 2,
     "name": "Blue Soul",
-    "coordinates": {"x": 200, "y": 150.0},
+    "coordinates": {
+      "x": 200,
+      "y": 150.0
+    },
     "numberOfParticipants": 8,
     "genre": "SOUL",
     "frontMan": {
@@ -26,8 +34,12 @@
     }
   },
   "3": {
+    "id": 3,
     "name": "Math Beats",
-    "coordinates": {"x": 50, "y": 120.25},
+    "coordinates": {
+      "x": 50,
+      "y": 120.25
+    },
     "numberOfParticipants": 4,
     "genre": "MATH_ROCK",
     "frontMan": {
@@ -36,6 +48,21 @@
       "height": 175,
       "passportID": "EF456789",
       "eyeColor": "ORANGE"
+    }
+  },
+  "77": {
+    "id": 1,
+    "name": "sr",
+    "coordinates": {
+      "x": 4,
+      "y": 4.0
+    },
+    "creationDate": "2026-05-03T15:26:07.856071707",
+    "numberOfParticipants": 4,
+    "genre": "RAP",
+    "frontMan": {
+      "name": "erg",
+      "passportID": "egrgreg"
     }
   }
 }
