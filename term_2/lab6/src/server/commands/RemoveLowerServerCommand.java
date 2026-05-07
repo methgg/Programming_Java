@@ -1,7 +1,6 @@
 package server.commands;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 
 import exceptions.ErrorMessages;
 import manager.CollectionManager;
@@ -23,16 +22,9 @@ public class RemoveLowerServerCommand implements ServerCommand {
             MusicBandArgument argument = (MusicBandArgument) request.getArgument();
             MusicBand referenceBand = argument.getMusicBand();
 
-            Iterator<Map.Entry<Long, MusicBand>> iterator =
-                    cm.getCollection().entrySet().iterator();
+            List<Long> keysToRemove = cm.getCollection().entrySet().stream().filter(entry -> entry.getValue().compareTo(referenceBand) < 0).map(entry -> entry.getKey()).toList();
 
-            while (iterator.hasNext()) {
-                Map.Entry<Long, MusicBand> entry = iterator.next();
-
-                if (entry.getValue().compareTo(referenceBand) < 0) {
-                    iterator.remove();
-                }
-            }
+            keysToRemove.forEach(cm.getCollection()::remove);
 
             return new CommandResponse(true, ErrorMessages.REMOVE_LOWER_DONE, null);
         } catch (ClassCastException | NullPointerException e) {

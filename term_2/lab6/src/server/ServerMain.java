@@ -25,7 +25,7 @@ public class ServerMain {
 
         ServerCommandManager serverCommandManager = new ServerCommandManager(cm);
         ServerCommandProcessor serverCommandProcessor = new ServerCommandProcessor(serverCommandManager);
-        ServerTcpApp serverTcpApp = new ServerTcpApp(serverCommandProcessor, 12345, cm, filename);
+        ServerTcpApp serverTcpApp = new ServerTcpApp(serverCommandProcessor, 25345, cm, filename);
         serverTcpApp.start();
 
       

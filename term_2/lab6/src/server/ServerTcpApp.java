@@ -3,8 +3,10 @@ package server;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -53,8 +55,8 @@ public class ServerTcpApp {
                     System.out.println("Клиент подключен.");
 
                     try (
-                            var input = clientSocket.getInputStream();
-                            var output = clientSocket.getOutputStream()
+                            InputStream input = clientSocket.getInputStream();
+                            OutputStream output = clientSocket.getOutputStream()
                     ) {
                         byte[] lengthBytes = input.readNBytes(Integer.BYTES);
                         if (lengthBytes.length < Integer.BYTES) {
