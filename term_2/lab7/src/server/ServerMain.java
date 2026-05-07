@@ -1,0 +1,33 @@
+package server;
+
+import manager.CollectionManager;
+import util.IdGenerator;
+import util.JsonUtil;
+
+public class ServerMain {
+    public static void main(String[] args) {
+        CollectionManager cm = new CollectionManager();
+        String filename = System.getenv("COLLECTIONFILE");
+
+        if (filename != null && !filename.isBlank()) {
+            Runtime.getRuntime().addShutdownHook(new Thread(() ->
+                    JsonUtil.writeToFile(filename, cm.getCollection())
+            ));
+        }
+
+
+        if (filename != null) {
+            cm.getCollection().putAll(JsonUtil.readFromFile(filename));
+            cm.getCollection().forEach((key, band) -> band.setId(key));
+            long maxId = cm.getCollection().keySet().stream().mapToLong(Long::longValue).max().orElse(0);
+            IdGenerator.updateCurrentId(maxId);
+        }
+
+        ServerCommandManager serverCommandManager = new ServerCommandManager(cm);
+        ServerCommandProcessor serverCommandProcessor = new ServerCommandProcessor(serverCommandManager);
+        ServerTcpApp serverTcpApp = new ServerTcpApp(serverCommandProcessor, 25345, cm, filename);
+        serverTcpApp.start();
+
+      
+    }
+}
