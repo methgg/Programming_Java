@@ -45,6 +45,23 @@ public final class ErrorMessages {
     public static final String INPUT_COORDINATE_Y = "Координата Y должна быть числом.";
     public static final String INPUT_PARTICIPANTS = "Количество участников должно быть целым числом.";
     public static final String INPUT_HEIGHT = "Рост должен быть числом.";
+    public static final String DATABASE_USER_NOT_SET = "Не задан пользователь БД: DB_USER или USER.";
+    public static final String DATABASE_PASSWORD_NOT_SET = "Не задан пароль БД: DB_PASSWORD.";
+    public static final String DATABASE_CONNECTION_INVALID = "Соединение с БД не прошло проверку.";
+    public static final String DATABASE_CONNECTED = "Подключение к БД установлено.";
+    public static final String DATABASE_SCHEMA_INITIALIZED = "Схема базы данных инициализирована.";
+    public static final String COLLECTION_LOADED_FROM_DATABASE = "Коллекция загружена из базы данных.";
+    public static final String CREATION_DATE_NULL = "Дата создания не может быть null.";
+    public static final String AUTH_REQUIRED = "Требуется авторизация.";
+    public static final String AUTH_INVALID = "Неверный логин или пароль.";
+    public static final String AUTH_DATA_MISSING = "Не переданы данные авторизации.";
+    public static final String AUTH_USERNAME_EMPTY = "Логин не может быть пустым.";
+    public static final String AUTH_PASSWORD_EMPTY = "Пароль не может быть пустым.";
+
+
+
+
+
 
     public static String commandError(String commandName, String details) {
         return "Ошибка команды " + commandName + ": " + details;
@@ -136,6 +153,13 @@ public final class ErrorMessages {
     public static String serverUnavailable(String details) {
         return "Сервер временно недоступен: " + details;
     }
+    public static String serverStartupError(String details) {
+        return "Ошибка запуска сервера: " + details;
+    }
+    public static String databaseReadError(String details) {
+        return "Ошибка чтения из базы данных: " + details;
+    }
+
 
 
 }

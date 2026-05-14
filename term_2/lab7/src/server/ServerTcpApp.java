@@ -11,28 +11,21 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
-import java.util.Scanner;
 
 import exceptions.ErrorMessages;
-import manager.CollectionManager;
 import network.CommandRequest;
 import network.CommandResponse;
-import util.JsonUtil;
+
 
 public class ServerTcpApp {
     private final ServerCommandProcessor serverCommandProcessor;
     private final int port;
-    private final CollectionManager collectionManager;
-    private final String filename;
-    private final Scanner scanner = new Scanner(System.in);
 
-
-    public ServerTcpApp(ServerCommandProcessor serverCommandProcessor, int port, CollectionManager collectionManager, String filename) {
+    public ServerTcpApp(ServerCommandProcessor serverCommandProcessor, int port) {
         this.serverCommandProcessor = serverCommandProcessor;
         this.port = port;
-        this.collectionManager = collectionManager;
-        this.filename = filename;
     }
+
 
 
     public void start() {
@@ -42,14 +35,6 @@ public class ServerTcpApp {
             System.out.println("Сервер слушает порт " + port + ".");
 
             while (true) {
-                if (filename != null && !filename.isBlank() && System.in.available() > 0) {
-                    String line = scanner.nextLine().trim();
-
-                    if (line.equals("save")) {
-                        JsonUtil.writeToFile(filename, collectionManager.getCollection());
-                        System.out.println(ErrorMessages.savedToFile(filename));
-                    }
-                }
                 try {
                     Socket clientSocket = serverSocket.accept();
                     System.out.println("Клиент подключен.");

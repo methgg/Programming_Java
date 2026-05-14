@@ -7,9 +7,11 @@ import java.util.Scanner;
 import java.util.Set;
 
 import exceptions.ErrorMessages;
+import network.AuthData;
 import network.CommandRequest;
 import network.CommandResponse;
 import util.ConsoleReader;
+import util.InputProvider;
 
 
 /**
@@ -24,7 +26,10 @@ public class ClientApp {
 
     public ClientApp(RequestSender requestSender) {
         this.clientCommandManager = new ClientCommandManager();
-        this.clientCommandParser = new ClientCommandParser(clientCommandManager);
+        String username = InputProvider.readLine("Введите логин: ");
+        String password = InputProvider.readLine("Введите пароль: ");
+        AuthData authData = new AuthData(username, password);
+        this.clientCommandParser = new ClientCommandParser(clientCommandManager, authData);
         this.requestSender = requestSender;
     }
 

@@ -19,6 +19,10 @@ public class MusicBand implements Comparable<MusicBand>, Serializable {
     private Person frontMan; //Поле не может быть null
 
     public MusicBand(String name, Coordinates coordinates, Integer numberOfParticipants, MusicGenre genre, Person frontMan) {
+        this(IdGenerator.generateId(), name, coordinates, LocalDateTime.now(), numberOfParticipants, genre, frontMan);
+    }
+
+    public MusicBand(Long id, String name, Coordinates coordinates, LocalDateTime creationDate, Integer numberOfParticipants, MusicGenre genre, Person frontMan) {
         if (name == null) {
             throw new ValidationException(ErrorMessages.BAND_NAME_NULL);
         }
@@ -30,6 +34,7 @@ public class MusicBand implements Comparable<MusicBand>, Serializable {
         if (coordinates == null) {
             throw new ValidationException(ErrorMessages.COORDINATES_NULL);
         }
+
         if (numberOfParticipants == null || numberOfParticipants <= 0) {
             throw new ValidationException(ErrorMessages.PARTICIPANTS_INVALID);
         }
@@ -42,15 +47,23 @@ public class MusicBand implements Comparable<MusicBand>, Serializable {
             throw new ValidationException(ErrorMessages.FRONTMAN_NULL);
         }
 
-        this.id = IdGenerator.generateId();
-        this.creationDate = LocalDateTime.now();
+        if (id == null || id <= 0) {
+            throw new ValidationException(ErrorMessages.INVALID_ID);
+        }
 
+        if (creationDate == null) {
+            throw new ValidationException(ErrorMessages.CREATION_DATE_NULL);
+        }
+
+        this.id = id;
+        this.creationDate = creationDate;
         this.name = name;
         this.coordinates = coordinates;
         this.numberOfParticipants = numberOfParticipants;
         this.genre = genre;
         this.frontMan = frontMan;
-        }
+    }
+
 
         @Override
         public int compareTo(MusicBand other) {
