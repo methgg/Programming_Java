@@ -1,6 +1,7 @@
 package server.commands;
 
 import java.util.Comparator;
+import java.util.concurrent.locks.Lock;
 import java.util.stream.Collectors;
 
 import exceptions.ErrorMessages;
@@ -19,20 +20,26 @@ public class PrintFieldDescendingFrontManServerCommand implements ServerCommand 
 
     @Override
     public CommandResponse execute(CommandRequest request) {
-        String message = cm.getCollection().values().stream()
-                .map(MusicBand::getFrontMan)
-                .sorted(Comparator.comparing(
-                        Person::getName,
-                        Comparator.nullsLast(String::compareTo)
-                ).reversed())
-                .map(Person::toString)
-                .collect(Collectors.joining("\n"));
+        Lock readLock = cm.getLock().readLock();
+        readLock.lock();
+        try {
+            String message = cm.getCollection().values().stream()
+                    .map(MusicBand::getFrontMan)
+                    .sorted(Comparator.comparing(
+                            Person::getName,
+                            Comparator.nullsLast(String::compareTo)
+                    ).reversed())
+                    .map(Person::toString)
+                    .collect(Collectors.joining("\n"));
 
-        if (message.isEmpty()) {
-            message = ErrorMessages.COLLECTION_EMPTY;
+            if (message.isEmpty()) {
+                message = ErrorMessages.COLLECTION_EMPTY;
+            }
+
+            return new CommandResponse(true, message, null);
+        } finally {
+            readLock.unlock();
         }
-
-        return new CommandResponse(true, message, null);
     }
 
     @Override

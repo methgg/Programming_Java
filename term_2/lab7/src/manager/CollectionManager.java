@@ -2,9 +2,12 @@ package manager;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import exceptions.ErrorMessages;
 import models.MusicBand;
+
 
 /**
  * Класс - менеджер коллекции, реализующий основные методы
@@ -12,6 +15,7 @@ import models.MusicBand;
 public class CollectionManager {
     private final LinkedHashMap<Long, MusicBand> collection = new LinkedHashMap<>();
     private final LocalDateTime initializationDate = LocalDateTime.now();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void insert(Long key, MusicBand band) {
         collection.put(key, band);
@@ -43,5 +47,9 @@ public class CollectionManager {
 
     public LocalDateTime getInitializationDate() {
         return initializationDate;
+    }
+
+    public ReadWriteLock getLock() {
+        return lock;
     }
 }

@@ -57,6 +57,8 @@ public final class ErrorMessages {
     public static final String AUTH_DATA_MISSING = "Не переданы данные авторизации.";
     public static final String AUTH_USERNAME_EMPTY = "Логин не может быть пустым.";
     public static final String AUTH_PASSWORD_EMPTY = "Пароль не может быть пустым.";
+    public static final String ACCESS_DENIED = "Недостаточно прав для изменения чужого объекта.";
+
 
 
 

@@ -28,7 +28,9 @@ public class ClientCommandHandlerRegistry {
                 CommandType.CLEAR,
                 CommandType.EXIT,
                 CommandType.PRINT_FIELD_DESCENDING_FRONT_MAN,
-                CommandType.SHOW_EVEN
+                CommandType.SHOW_EVEN,
+                CommandType.REGISTER,
+                CommandType.LOGIN
         );
 
         for (CommandType type : noArgCommands) {

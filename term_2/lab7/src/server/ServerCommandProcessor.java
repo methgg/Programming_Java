@@ -19,14 +19,17 @@ public class ServerCommandProcessor {
             return new CommandResponse(false, ErrorMessages.invalidRequest(), null);
         }
 
-        try {
-            String authError = authService.validate(request.getAuthData());
-            if (authError != null) {
-                return new CommandResponse(false, authError, null);
+        if (request.getCommandType() != network.CommandType.REGISTER && request.getCommandType() != network.CommandType.LOGIN) {
+            try {
+                String authError = authService.validate(request.getAuthData());
+                if (authError != null) {
+                    return new CommandResponse(false, authError, null);
+                }
+            } catch (Exception e) {
+                return new CommandResponse(false, ErrorMessages.commandExecutionError(e.getMessage()), null);
             }
-        } catch (Exception e) {
-            return new CommandResponse(false, ErrorMessages.commandExecutionError(e.getMessage()), null);
         }
+
 
         ServerCommand command = commandManager.getCommand(request.getCommandType());
 

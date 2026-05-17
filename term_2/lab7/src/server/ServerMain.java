@@ -28,7 +28,7 @@ public class ServerMain {
             UserRepository userRepository = new UserRepository(databaseManager);
             AuthService authService = new AuthService(userRepository);
 
-            ServerCommandManager serverCommandManager = new ServerCommandManager(cm);
+            ServerCommandManager serverCommandManager = new ServerCommandManager(cm, userRepository, musicBandRepository);
             ServerCommandProcessor serverCommandProcessor = new ServerCommandProcessor(serverCommandManager, authService);
             ServerTcpApp serverTcpApp = new ServerTcpApp(serverCommandProcessor, 25345);
             serverTcpApp.start();

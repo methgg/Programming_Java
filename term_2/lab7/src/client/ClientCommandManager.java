@@ -27,6 +27,9 @@ public class ClientCommandManager {
         commands.put("print_field_descending_front_man", CommandType.PRINT_FIELD_DESCENDING_FRONT_MAN);
         commands.put("show_even", CommandType.SHOW_EVEN);
         commands.put("execute_script", null);
+        commands.put("register", CommandType.REGISTER);
+        commands.put("login", CommandType.LOGIN);
+
     }
 
     public CommandType getCommandType(String name) {

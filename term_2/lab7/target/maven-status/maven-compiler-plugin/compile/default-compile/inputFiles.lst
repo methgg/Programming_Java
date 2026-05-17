@@ -16,7 +16,10 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/client/commands/UpdateCommandHandler.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/database/DatabaseConfig.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/database/DatabaseManager.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/database/MusicBandRepository.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/database/MusicBandRowMapper.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/database/SchemaInitializer.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/database/UserRepository.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/exceptions/CommandException.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/exceptions/ErrorMessages.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/exceptions/ValidationException.java
@@ -26,6 +29,7 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/models/MusicBand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/models/MusicGenre.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/models/Person.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/network/AuthData.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/network/CommandRequest.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/network/CommandResponse.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/network/CommandType.java
@@ -36,6 +40,7 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/network/arguments/MusicBandArgument.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/network/arguments/NumberOfParticipantsArgument.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/network/arguments/UpdateArgument.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/AuthService.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/ServerCommandManager.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/ServerCommandProcessor.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/ServerMain.java
@@ -47,7 +52,9 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/HelpServerCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/InfoServerCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/InsertServerCommand.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/LoginServerCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/PrintFieldDescendingFrontManServerCommand.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/RegisterServerCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/RemoveGreaterKeyServerCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/RemoveKeyServerCommand.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/server/commands/RemoveLowerServerCommand.java
@@ -62,4 +69,5 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/util/JsonUtil.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/util/LocalDateAdapter.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/util/LocalDateTimeAdapter.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/util/PasswordHasher.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/util/ReadMusicBandFromUser.java
