@@ -52,6 +52,9 @@ public class InsertServerCommand implements ServerCommand {
         } catch (ClassCastException | NullPointerException e) {
             return new CommandResponse(false, ErrorMessages.commandError("insert", ErrorMessages.INSERT_PARSE_ERROR), null);
         } catch (SQLException e) {
+            if ("23505".equals(e.getSQLState())) {
+                return new CommandResponse(false, ErrorMessages.DUPLICATE_COLLECTION_KEY, null);
+            }
             return new CommandResponse(false, ErrorMessages.commandExecutionError(e.getMessage()), null);
         } finally {
             writeLock.unlock();

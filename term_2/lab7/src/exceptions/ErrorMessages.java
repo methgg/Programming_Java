@@ -18,6 +18,7 @@ public final class ErrorMessages {
     public static final String INSERT_PARSE_ERROR = "Не удалось разобрать объект MusicBand из JSON.";
     public static final String ELEMENT_ADDED = "Элемент успешно добавлен.";
     public static final String ELEMENT_REPLACED = "Элемент заменен.";
+    public static final String DUPLICATE_COLLECTION_KEY = "Элемент с таким ключом уже существует.";
     public static final String NEW_ELEMENT_NOT_GREATER = "Новый элемент не больше старого. Замена не выполнена.";
     public static final String REMOVE_LOWER_DONE = "Все элементы меньше заданного удалены.";
     public static final String INVALID_KEY = "Ключ должен быть целым числом.";
