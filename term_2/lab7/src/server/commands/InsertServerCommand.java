@@ -44,9 +44,18 @@ public class InsertServerCommand implements ServerCommand {
             if (ownerId == null) {
                 return new CommandResponse(false, ErrorMessages.AUTH_INVALID, null);
             }
-            
-            MusicBand persistedBand = musicBandRepository.insert(key, band, ownerId);
+
+            MusicBand bandToInsert = new MusicBand(
+                    band.getName(),
+                    band.getCoordinates(),
+                    band.getNumberOfParticipants(),
+                    band.getGenre(),
+                    band.getFrontMan()
+            );
+
+            MusicBand persistedBand = musicBandRepository.insert(key, bandToInsert, ownerId);
             cm.insert(key, persistedBand);
+
 
             return new CommandResponse(true, ErrorMessages.ELEMENT_ADDED, null);
         } catch (ClassCastException | NullPointerException e) {
