@@ -56,7 +56,7 @@ public class ClearServerCommand implements ServerCommand {
             keysToRemove.forEach(collectionManager::remove);
 
             return new CommandResponse(true,
-                    deletedCount > 0 ? ErrorMessages.COLLECTION_CLEARED : ErrorMessages.COLLECTION_EMPTY,
+                    deletedCount > 0 ? ErrorMessages.OWNED_ELEMENTS_CLEARED : ErrorMessages.NO_OWNED_ELEMENTS_TO_REMOVE,
                     null);
         } catch (SQLException e) {
             return new CommandResponse(false,

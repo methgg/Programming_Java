@@ -56,7 +56,7 @@ public class RemoveGreaterKeyServerCommand implements ServerCommand {
                     .toList();
 
             if (keysToRemove.isEmpty()) {
-                return new CommandResponse(true, ErrorMessages.removedGreaterKeys(key), null);
+                return new CommandResponse(true, ErrorMessages.NO_OWNED_ELEMENTS_TO_REMOVE, null);
             }
 
             int deletedCount = musicBandRepository.deleteByKeys(keysToRemove);
@@ -68,7 +68,7 @@ public class RemoveGreaterKeyServerCommand implements ServerCommand {
 
             keysToRemove.forEach(collectionManager::remove);
 
-            return new CommandResponse(true, ErrorMessages.removedGreaterKeys(key), null);
+            return new CommandResponse(true, ErrorMessages.OWNED_ELEMENTS_GREATER_KEYS_REMOVED, null);
         } catch (ClassCastException | NullPointerException e) {
             return new CommandResponse(false,
                     ErrorMessages.commandError("remove_greater_key", ErrorMessages.INVALID_KEY),

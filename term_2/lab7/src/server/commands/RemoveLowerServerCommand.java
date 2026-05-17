@@ -58,7 +58,7 @@ public class RemoveLowerServerCommand implements ServerCommand {
                     .toList();
 
             if (entriesToRemove.isEmpty()) {
-                return new CommandResponse(true, ErrorMessages.REMOVE_LOWER_DONE, null);
+                return new CommandResponse(true, ErrorMessages.NO_OWNED_ELEMENTS_TO_REMOVE, null);
             }
 
             List<Long> idsToRemove = entriesToRemove.stream().map(entry -> entry.getValue().getId()).toList();
@@ -72,7 +72,7 @@ public class RemoveLowerServerCommand implements ServerCommand {
 
             entriesToRemove.stream().map(Map.Entry::getKey).forEach(collectionManager::remove);
 
-            return new CommandResponse(true, ErrorMessages.REMOVE_LOWER_DONE, null);
+            return new CommandResponse(true, ErrorMessages.OWNED_ELEMENTS_LOWER_REMOVED, null);
         } catch (ClassCastException | NullPointerException e) {
             return new CommandResponse(false,
                     ErrorMessages.commandError("remove_lower", ErrorMessages.INSERT_PARSE_ERROR),
