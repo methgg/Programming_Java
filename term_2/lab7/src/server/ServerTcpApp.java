@@ -49,21 +49,21 @@ public class ServerTcpApp {
 
                         byte[] requestBytes;
 
-                        try (InputStream input = clientSocket.getInputStream()) {
-                            byte[] lengthBytes = input.readNBytes(Integer.BYTES);
-                            if (lengthBytes.length < Integer.BYTES) {
-                                clientSocket.close();
-                                continue;
-                            }
-
-                            int requestLength = ByteBuffer.wrap(lengthBytes).getInt();
-                            requestBytes = input.readNBytes(requestLength);
-
-                            if (requestBytes.length < requestLength) {
-                                clientSocket.close();
-                                continue;
-                            }              
+                        InputStream input = clientSocket.getInputStream();
+                        byte[] lengthBytes = input.readNBytes(Integer.BYTES);
+                        if (lengthBytes.length < Integer.BYTES) {
+                            clientSocket.close();
+                            continue;
                         }
+
+                        int requestLength = ByteBuffer.wrap(lengthBytes).getInt();
+                        requestBytes = input.readNBytes(requestLength);
+
+                        if (requestBytes.length < requestLength) {
+                            clientSocket.close();
+                            continue;
+                        }              
+                        
                         
                         CommandRequest request = deserializeRequest(requestBytes);
 
