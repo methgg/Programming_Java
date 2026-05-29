@@ -18,7 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import models.MusicBand;
 
 /**
@@ -42,11 +42,11 @@ public class JsonUtil {
             map = gson.fromJson(json, type);
 
         } catch (FileNotFoundException e) {
-            System.out.println(ErrorMessages.fileNotFound(filename));
+            System.out.println(Messages.fileNotFound(filename));
         } catch (IOException e) {
-            System.out.println(ErrorMessages.fileReadError(e.getMessage()));
+            System.out.println(Messages.fileReadError(e.getMessage()));
         } catch (JsonSyntaxException e) {
-            System.out.println(ErrorMessages.jsonSyntaxError(e.getMessage()));
+            System.out.println(Messages.jsonSyntaxError(e.getMessage()));
         }
 
         return map != null ? map : new LinkedHashMap<>();
@@ -57,7 +57,7 @@ public class JsonUtil {
              OutputStreamWriter writer = new OutputStreamWriter(bos, StandardCharsets.UTF_8)) {
             gson.toJson(map, writer);
         } catch (IOException e) {
-            System.out.println(ErrorMessages.fileSaveError(e.getMessage()));
+            System.out.println(Messages.fileSaveError(e.getMessage()));
         }
     }
     public static Gson getGson() {

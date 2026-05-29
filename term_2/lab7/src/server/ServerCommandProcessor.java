@@ -1,6 +1,6 @@
 package server;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import network.CommandRequest;
 import network.CommandResponse;
 import server.commands.ServerCommand;
@@ -16,7 +16,7 @@ public class ServerCommandProcessor {
 
     public CommandResponse process(CommandRequest request) {
         if (request == null || request.getCommandType() == null) {
-            return new CommandResponse(false, ErrorMessages.invalidRequest(), null);
+            return new CommandResponse(false, Messages.invalidRequest(), null);
         }
 
         if (request.getCommandType() != network.CommandType.REGISTER && request.getCommandType() != network.CommandType.LOGIN) {
@@ -26,7 +26,7 @@ public class ServerCommandProcessor {
                     return new CommandResponse(false, authError, null);
                 }
             } catch (Exception e) {
-                return new CommandResponse(false, ErrorMessages.commandExecutionError(e.getMessage()), null);
+                return new CommandResponse(false, Messages.commandExecutionError(e.getMessage()), null);
             }
         }
 
@@ -34,13 +34,13 @@ public class ServerCommandProcessor {
         ServerCommand command = commandManager.getCommand(request.getCommandType());
 
         if (command == null) {
-            return new CommandResponse(false, ErrorMessages.UNKNOWN_COMMAND, null);
+            return new CommandResponse(false, Messages.UNKNOWN_COMMAND, null);
         }
 
         try {
             return command.execute(request);
         } catch (Exception e) {
-            return new CommandResponse(false, ErrorMessages.commandExecutionError(e.getMessage()), null);
+            return new CommandResponse(false, Messages.commandExecutionError(e.getMessage()), null);
         }
     }
 }

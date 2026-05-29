@@ -21,7 +21,7 @@
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/database/SchemaInitializer.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/database/UserRepository.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/exceptions/CommandException.java
-/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/exceptions/ErrorMessages.java
+/home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/exceptions/Messages.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/exceptions/ValidationException.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/manager/CollectionManager.java
 /home/methgg/Desktop/ITMO/ProgJava/Programming_Java/term_2/lab7/src/models/Color.java

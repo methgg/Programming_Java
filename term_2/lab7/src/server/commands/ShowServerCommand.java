@@ -3,10 +3,9 @@ package server.commands;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 import java.util.stream.Collectors;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import manager.CollectionManager;
 import models.MusicBand;
 import network.CommandRequest;
@@ -21,9 +20,7 @@ public class ShowServerCommand implements ServerCommand {
 
     @Override
     public CommandResponse execute(CommandRequest request) {
-        Lock readLock = collectionManager.getLock().readLock();
-        readLock.lock();
-        try {
+        return collectionManager.withReadLock(() -> {
             LinkedHashMap<Long, MusicBand> sortedCollection = collectionManager.getCollection().entrySet().stream()
                 .sorted(Comparator.comparing(entry -> entry.getValue().getName()))
                 .collect(Collectors.toMap(
@@ -34,7 +31,7 @@ public class ShowServerCommand implements ServerCommand {
                 ));
 
             if (sortedCollection.isEmpty()) {
-                return new CommandResponse(true, ErrorMessages.COLLECTION_EMPTY, sortedCollection);
+                return new CommandResponse(true, Messages.COLLECTION_EMPTY, sortedCollection);
             }
 
             String message = sortedCollection.entrySet().stream()
@@ -42,10 +39,7 @@ public class ShowServerCommand implements ServerCommand {
                     .collect(Collectors.joining("\n"));
 
             return new CommandResponse(true, message, sortedCollection);
-        } finally {
-            readLock.unlock();
-        }
-        
+        });
     }
 
     @Override

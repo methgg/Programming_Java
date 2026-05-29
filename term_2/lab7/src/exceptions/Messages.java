@@ -3,8 +3,8 @@ package exceptions;
 /**
  * Класс, содержащий сообщения команд
  */
-public final class ErrorMessages {
-    private ErrorMessages() {
+public final class Messages {
+    private Messages() {
     }
 
     public static final String UNKNOWN_COMMAND = "Команда не найдена. Введите help.";
@@ -53,16 +53,16 @@ public final class ErrorMessages {
     public static final String DATABASE_SCHEMA_INITIALIZED = "Схема базы данных инициализирована.";
     public static final String COLLECTION_LOADED_FROM_DATABASE = "Коллекция загружена из базы данных.";
     public static final String CREATION_DATE_NULL = "Дата создания не может быть null.";
-public static final String AUTH_REQUIRED = "Требуется авторизация.";
-public static final String AUTH_INVALID = "Неверный логин или пароль.";
-public static final String AUTH_DATA_MISSING = "Не переданы данные авторизации.";
-public static final String AUTH_USERNAME_EMPTY = "Логин не может быть пустым.";
-public static final String AUTH_PASSWORD_EMPTY = "Пароль не может быть пустым.";
-public static final String ACCESS_DENIED = "Недостаточно прав для изменения чужого объекта.";
-public static final String OWNED_ELEMENTS_CLEARED = "Все принадлежащие вам элементы удалены.";
-public static final String OWNED_ELEMENTS_GREATER_KEYS_REMOVED = "Удалены ваши элементы с ключами больше заданного.";
-public static final String OWNED_ELEMENTS_LOWER_REMOVED = "Удалены ваши элементы, меньшие заданного.";
-public static final String NO_OWNED_ELEMENTS_TO_REMOVE = "У вас нет подходящих элементов для удаления.";
+    public static final String AUTH_REQUIRED = "Требуется авторизация.";
+    public static final String AUTH_INVALID = "Неверный логин или пароль.";
+    public static final String AUTH_DATA_MISSING = "Не переданы данные авторизации.";
+    public static final String AUTH_USERNAME_EMPTY = "Логин не может быть пустым.";
+    public static final String AUTH_PASSWORD_EMPTY = "Пароль не может быть пустым.";
+    public static final String ACCESS_DENIED = "Недостаточно прав для изменения чужого объекта.";
+    public static final String OWNED_ELEMENTS_CLEARED = "Все принадлежащие вам элементы удалены.";
+    public static final String OWNED_ELEMENTS_GREATER_KEYS_REMOVED = "Удалены ваши элементы с ключами больше заданного.";
+    public static final String OWNED_ELEMENTS_LOWER_REMOVED = "Удалены ваши элементы, меньшие заданного.";
+    public static final String NO_OWNED_ELEMENTS_TO_REMOVE = "У вас нет подходящих элементов для удаления.";
 
 
 

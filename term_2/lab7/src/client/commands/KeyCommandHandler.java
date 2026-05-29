@@ -1,6 +1,6 @@
 package client.commands;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import network.AuthData;
 import network.CommandRequest;
 import network.CommandType;
@@ -10,14 +10,14 @@ public class KeyCommandHandler implements ClientCommandHandler {
     @Override
     public CommandRequest build(CommandType type, String commandName, String args, AuthData authData) {
         if (args.isBlank()) {
-            throw new IllegalArgumentException(ErrorMessages.missingArgument(commandName));
+            throw new IllegalArgumentException(Messages.missingArgument(commandName));
         }
 
         try {
             return new CommandRequest(type, new KeyArgument(Long.valueOf(args)), authData);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
-                    ErrorMessages.commandError(commandName, ErrorMessages.INVALID_KEY)
+                    Messages.commandError(commandName, Messages.INVALID_KEY)
             );
         }
     }

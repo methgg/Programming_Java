@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 
 public class DatabaseManager {
     private final DatabaseConfig config;
@@ -20,7 +20,7 @@ public class DatabaseManager {
     public void testConnection() throws SQLException {
         try (Connection connection = getConnection()) {
             if (!connection.isValid(2)) {
-                throw new SQLException(ErrorMessages.DATABASE_CONNECTION_INVALID);
+                throw new SQLException(Messages.DATABASE_CONNECTION_INVALID);
             }
         }
     }

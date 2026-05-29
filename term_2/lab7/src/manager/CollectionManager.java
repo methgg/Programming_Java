@@ -2,10 +2,12 @@ package manager;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Supplier;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import models.MusicBand;
 
 
@@ -27,7 +29,7 @@ public class CollectionManager {
 
     public void show() {
         if (collection.isEmpty()) {
-            System.out.println(ErrorMessages.COLLECTION_EMPTY);
+            System.out.println(Messages.COLLECTION_EMPTY);
         } else {
             collection.forEach((k, v) -> System.out.println(k + " -> " + v));
         }
@@ -49,7 +51,43 @@ public class CollectionManager {
         return initializationDate;
     }
 
-    public ReadWriteLock getLock() {
-        return lock;
+    public <T> T withReadLock(Supplier<T> action) {
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            return action.get();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    public void withReadLock(Runnable action) {
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            action.run();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    public <T> T withWriteLock(Supplier<T> action) {
+        Lock writeLock = lock.writeLock();
+        writeLock.lock();
+        try {
+            return action.get();
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    public void withWriteLock(Runnable action) {
+        Lock writeLock = lock.writeLock();
+        writeLock.lock();
+        try {
+            action.run();
+        } finally {
+            writeLock.unlock();
+        }
     }
 }

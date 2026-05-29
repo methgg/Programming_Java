@@ -1,7 +1,7 @@
 package client.commands;
 
 import exceptions.CommandException;
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import models.MusicBand;
 import network.AuthData;
 import network.CommandRequest;
@@ -14,7 +14,7 @@ public class InsertCommandHandler implements ClientCommandHandler {
     @Override
     public CommandRequest build(CommandType type, String commandName, String args, AuthData authData) {
         if (args.isBlank()) {
-            throw new IllegalArgumentException(ErrorMessages.missingArgument(commandName));
+            throw new IllegalArgumentException(Messages.missingArgument(commandName));
         }
 
         String[] insertParts = args.split(" ", 2);
@@ -24,7 +24,7 @@ public class InsertCommandHandler implements ClientCommandHandler {
             key = Long.valueOf(insertParts[0]);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
-                    ErrorMessages.commandError(commandName, ErrorMessages.INVALID_KEY)
+                    Messages.commandError(commandName, Messages.INVALID_KEY)
             );
         }
 
@@ -33,7 +33,7 @@ public class InsertCommandHandler implements ClientCommandHandler {
         if (insertParts.length > 1) {
             band = JsonUtil.getGson().fromJson(insertParts[1], MusicBand.class);
             if (band == null) {
-                throw new CommandException(ErrorMessages.INSERT_PARSE_ERROR);
+                throw new CommandException(Messages.INSERT_PARSE_ERROR);
             }
         } else {
             band = new ReadMusicBandFromUser().read();

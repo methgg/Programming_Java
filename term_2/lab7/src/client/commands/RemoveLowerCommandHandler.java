@@ -1,7 +1,7 @@
 package client.commands;
 
 import exceptions.CommandException;
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import models.MusicBand;
 import network.AuthData;
 import network.CommandRequest;
@@ -18,7 +18,7 @@ public class RemoveLowerCommandHandler implements ClientCommandHandler {
         if (!args.isBlank()) {
             referenceBand = JsonUtil.getGson().fromJson(args, MusicBand.class);
             if (referenceBand == null) {
-                throw new CommandException(ErrorMessages.INSERT_PARSE_ERROR);
+                throw new CommandException(Messages.INSERT_PARSE_ERROR);
             }
         } else {
             referenceBand = new ReadMusicBandFromUser().read();

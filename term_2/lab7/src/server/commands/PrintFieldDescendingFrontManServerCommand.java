@@ -1,10 +1,9 @@
 package server.commands;
 
 import java.util.Comparator;
-import java.util.concurrent.locks.Lock;
 import java.util.stream.Collectors;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import manager.CollectionManager;
 import models.MusicBand;
 import models.Person;
@@ -20,9 +19,7 @@ public class PrintFieldDescendingFrontManServerCommand implements ServerCommand 
 
     @Override
     public CommandResponse execute(CommandRequest request) {
-        Lock readLock = cm.getLock().readLock();
-        readLock.lock();
-        try {
+        return cm.withReadLock(() -> {
             String message = cm.getCollection().values().stream()
                     .map(MusicBand::getFrontMan)
                     .sorted(Comparator.comparing(
@@ -33,13 +30,11 @@ public class PrintFieldDescendingFrontManServerCommand implements ServerCommand 
                     .collect(Collectors.joining("\n"));
 
             if (message.isEmpty()) {
-                message = ErrorMessages.COLLECTION_EMPTY;
+                message = Messages.COLLECTION_EMPTY;
             }
 
             return new CommandResponse(true, message, null);
-        } finally {
-            readLock.unlock();
-        }
+        });
     }
 
     @Override

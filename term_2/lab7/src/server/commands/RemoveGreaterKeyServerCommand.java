@@ -2,88 +2,79 @@ package server.commands;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
 
 import database.MusicBandRepository;
-import database.UserRepository;
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import manager.CollectionManager;
 import network.AuthData;
 import network.CommandRequest;
 import network.CommandResponse;
 import network.arguments.KeyArgument;
+import server.AuthService;
 
 public class RemoveGreaterKeyServerCommand implements ServerCommand {
     private final CollectionManager collectionManager;
     private final MusicBandRepository musicBandRepository;
-    private final UserRepository userRepository;
+    private final AuthService authService;
 
     public RemoveGreaterKeyServerCommand(CollectionManager collectionManager,
                                          MusicBandRepository musicBandRepository,
-                                         UserRepository userRepository) {
+                                         AuthService authService) {
         this.collectionManager = collectionManager;
         this.musicBandRepository = musicBandRepository;
-        this.userRepository = userRepository;
+        this.authService = authService;
     }
 
     @Override
     public CommandResponse execute(CommandRequest request) {
-        Lock writeLock = collectionManager.getLock().writeLock();
-        writeLock.lock();
-        try {
-            KeyArgument argument = (KeyArgument) request.getArgument();
-            AuthData authData = request.getAuthData();
-            Long key = argument.getKey();
+        return collectionManager.withWriteLock(() -> {
+            try {
+                KeyArgument argument = (KeyArgument) request.getArgument();
+                AuthData authData = request.getAuthData();
+                Long key = argument.getKey();
+                Long userId = authService.requireUserId(authData);
 
-            if (authData == null || authData.getUsername() == null || authData.getUsername().isBlank()) {
-                return new CommandResponse(false, ErrorMessages.AUTH_DATA_MISSING, null);
-            }
+                List<Long> keysToRemove = collectionManager.getCollection().keySet().stream()
+                        .filter(existingKey -> existingKey > key)
+                        .filter(existingKey -> {
+                            try {
+                                return musicBandRepository.isOwner(existingKey, userId);
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .toList();
 
-            Long userId = userRepository.findUserIdByUsername(authData.getUsername());
-            if (userId == null) {
-                return new CommandResponse(false, ErrorMessages.AUTH_INVALID, null);
-            }
+                if (keysToRemove.isEmpty()) {
+                    return new CommandResponse(true, Messages.NO_OWNED_ELEMENTS_TO_REMOVE, null);
+                }
 
-            List<Long> keysToRemove = collectionManager.getCollection().keySet().stream()
-                    .filter(existingKey -> existingKey > key)
-                    .filter(existingKey -> {
-                        try {
-                            return musicBandRepository.isOwner(existingKey, userId);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .toList();
+                int deletedCount = musicBandRepository.deleteByKeys(keysToRemove);
+                if (deletedCount != keysToRemove.size()) {
+                    return new CommandResponse(false,
+                            Messages.commandExecutionError("Не все элементы удалось удалить из базы данных."),
+                            null);
+                }
 
-            if (keysToRemove.isEmpty()) {
-                return new CommandResponse(true, ErrorMessages.NO_OWNED_ELEMENTS_TO_REMOVE, null);
-            }
+                keysToRemove.forEach(collectionManager::remove);
 
-            int deletedCount = musicBandRepository.deleteByKeys(keysToRemove);
-            if (deletedCount != keysToRemove.size()) {
+                return new CommandResponse(true, Messages.OWNED_ELEMENTS_GREATER_KEYS_REMOVED, null);
+            } catch (ClassCastException | NullPointerException e) {
                 return new CommandResponse(false,
-                        ErrorMessages.commandExecutionError("Не все элементы удалось удалить из базы данных."),
+                        Messages.commandError("remove_greater_key", Messages.INVALID_KEY),
+                        null);
+            } catch (IllegalStateException e) {
+                return new CommandResponse(false, e.getMessage(), null);
+            } catch (SQLException e) {
+                return new CommandResponse(false,
+                        Messages.commandExecutionError(e.getMessage()),
+                        null);
+            } catch (RuntimeException e) {
+                return new CommandResponse(false,
+                        Messages.commandExecutionError(e.getMessage()),
                         null);
             }
-
-            keysToRemove.forEach(collectionManager::remove);
-
-            return new CommandResponse(true, ErrorMessages.OWNED_ELEMENTS_GREATER_KEYS_REMOVED, null);
-        } catch (ClassCastException | NullPointerException e) {
-            return new CommandResponse(false,
-                    ErrorMessages.commandError("remove_greater_key", ErrorMessages.INVALID_KEY),
-                    null);
-        } catch (SQLException e) {
-            return new CommandResponse(false,
-                    ErrorMessages.commandExecutionError(e.getMessage()),
-                    null);
-        } catch (RuntimeException e) {
-            return new CommandResponse(false,
-                    ErrorMessages.commandExecutionError(e.getMessage()),
-                    null);
-        } finally {
-            writeLock.unlock();
-        }
+        });
     }
 
     @Override

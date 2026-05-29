@@ -2,7 +2,7 @@ package client;
 
 import client.commands.ClientCommandHandler;
 import client.commands.ClientCommandHandlerRegistry;
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import network.AuthData;
 import network.CommandRequest;
 import network.CommandType;
@@ -27,7 +27,7 @@ public class ClientCommandParser {
         CommandType type = commandManager.getCommandType(commandName);
 
         if (type == null) {
-            throw new IllegalArgumentException(ErrorMessages.UNKNOWN_COMMAND);
+            throw new IllegalArgumentException(Messages.UNKNOWN_COMMAND);
         }
 
         ClientCommandHandler handler = handlerRegistry.getHandler(type);
@@ -35,6 +35,6 @@ public class ClientCommandParser {
             return handler.build(type, commandName, args, authData);
         }
         
-        throw new IllegalArgumentException(ErrorMessages.unsupportedClientCommand(commandName));
+        throw new IllegalArgumentException(Messages.unsupportedClientCommand(commandName));
     } 
 }

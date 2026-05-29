@@ -1,9 +1,8 @@
 package server.commands;
 
-import java.util.concurrent.locks.Lock;
 import java.util.stream.Collectors;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import manager.CollectionManager;
 import network.CommandRequest;
 import network.CommandResponse;
@@ -17,22 +16,18 @@ public class ShowEvenServerCommand implements ServerCommand {
 
     @Override
     public CommandResponse execute(CommandRequest request) {
-        Lock readLock = cm.getLock().readLock();
-        readLock.lock();
-        try {
+        return cm.withReadLock(() -> {
             String message = cm.getCollection().entrySet().stream()
                     .filter(entry -> entry.getKey() % 2 == 0)
                     .map(entry -> entry.getKey() + " -> " + entry.getValue())
                     .collect(Collectors.joining("\n"));
 
             if (message.isEmpty()) {
-                message = ErrorMessages.COLLECTION_EMPTY;
+                message = Messages.COLLECTION_EMPTY;
             }
 
             return new CommandResponse(true, message, null);
-        } finally {
-            readLock.unlock();
-        }
+        });
     }
 
     @Override

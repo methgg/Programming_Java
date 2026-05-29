@@ -9,7 +9,7 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import network.CommandRequest;
 import network.CommandResponse;
 
@@ -65,7 +65,7 @@ public class SocketRequestSender implements RequestSender {
 
             return deserialize(responseDataBuffer.array());
         } catch (IOException | ClassNotFoundException e) {
-            return new CommandResponse(false, ErrorMessages.serverUnavailable(e.getMessage()), null);
+            return new CommandResponse(false, Messages.serverUnavailable(e.getMessage()), null);
         }
     }
 

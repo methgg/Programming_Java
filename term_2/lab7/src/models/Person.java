@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import exceptions.ValidationException;
 
 public class Person implements Serializable {
@@ -15,23 +15,23 @@ public class Person implements Serializable {
 
     public Person(String name, java.time.LocalDate birthday, Long height, String passportID, Color eyeColor) {
         if (name == null) {
-            throw new ValidationException(ErrorMessages.PERSON_NAME_NULL);
+            throw new ValidationException(Messages.PERSON_NAME_NULL);
         }
 
         if (name.equals("")) {
-            throw new ValidationException(ErrorMessages.PERSON_NAME_EMPTY);
+            throw new ValidationException(Messages.PERSON_NAME_EMPTY);
         }
 
         if (height != null && height <= 0) {
-            throw new ValidationException(ErrorMessages.HEIGHT_INVALID);
+            throw new ValidationException(Messages.HEIGHT_INVALID);
         }
 
         if (passportID == null){
-            throw new ValidationException(ErrorMessages.PASSPORT_NULL);
+            throw new ValidationException(Messages.PASSPORT_NULL);
         }
 
         if (passportID.equals("")) {
-            throw new ValidationException(ErrorMessages.PASSPORT_EMPTY);
+            throw new ValidationException(Messages.PASSPORT_EMPTY);
         }
 
         this.name = name;

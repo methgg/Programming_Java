@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import network.AuthData;
 import network.CommandRequest;
 import network.CommandResponse;
@@ -41,7 +41,7 @@ public class ClientApp {
             try {
                 line = ConsoleReader.readLineWithTabCompletion("> ", clientCommandManager.getCommandNames());
             } catch (Exception e) {
-                System.out.println(ErrorMessages.inputError(e.getMessage()));
+                System.out.println(Messages.inputError(e.getMessage()));
                 continue;
             }
             if (line == null) {
@@ -64,11 +64,11 @@ public class ClientApp {
 
         if (commandName.equals("execute_script")) {
             if (commandArgs.isEmpty()) {
-                System.out.println(ErrorMessages.missingArgument(commandName));
+                System.out.println(Messages.missingArgument(commandName));
                 return false;
             }
             if (activeScripts.contains(commandArgs)) {
-                System.out.println(ErrorMessages.scriptError(ErrorMessages.SCRIPT_RECURSION + commandArgs));
+                System.out.println(Messages.scriptError(Messages.SCRIPT_RECURSION + commandArgs));
                 return false;
             }
             activeScripts.add(commandArgs);
@@ -86,7 +86,7 @@ public class ClientApp {
                 }
                     
             } catch (FileNotFoundException e) {
-                System.out.println(ErrorMessages.fileNotFound(commandArgs));
+                System.out.println(Messages.fileNotFound(commandArgs));
             } finally {
                 activeScripts.remove(commandArgs);
             }

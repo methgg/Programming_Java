@@ -30,22 +30,25 @@ import server.commands.UpdateServerCommand;
 public class ServerCommandManager {
     private final Map<CommandType, ServerCommand> commands = new HashMap<>();
 
-    public ServerCommandManager(CollectionManager collectionManager, UserRepository userRepository, MusicBandRepository musicBandRepository) {
+    public ServerCommandManager(CollectionManager collectionManager,
+                                MusicBandRepository musicBandRepository,
+                                AuthService authService,
+                                UserRepository userRepository) {
         commands.put(CommandType.INFO, new InfoServerCommand(collectionManager));
         commands.put(CommandType.SHOW, new ShowServerCommand(collectionManager));
-        commands.put(CommandType.CLEAR, new ClearServerCommand(collectionManager, musicBandRepository, userRepository));
+        commands.put(CommandType.CLEAR, new ClearServerCommand(collectionManager, musicBandRepository, authService));
         commands.put(CommandType.COUNT_GREATER_THAN_NUMBER_OF_PARTICIPANTS, new CountGreaterThanNumberOfParticipantsServerCommand(collectionManager));
-        commands.put(CommandType.REMOVE_KEY, new RemoveKeyServerCommand(collectionManager, musicBandRepository, userRepository));
-        commands.put(CommandType.REMOVE_GREATER_KEY, new RemoveGreaterKeyServerCommand(collectionManager, musicBandRepository, userRepository));
+        commands.put(CommandType.REMOVE_KEY, new RemoveKeyServerCommand(collectionManager, musicBandRepository, authService));
+        commands.put(CommandType.REMOVE_GREATER_KEY, new RemoveGreaterKeyServerCommand(collectionManager, musicBandRepository, authService));
         commands.put(CommandType.FILTER_GREATER_THAN_GENRE, new FilterGreaterThanGenreServerCommand(collectionManager));
         commands.put(CommandType.PRINT_FIELD_DESCENDING_FRONT_MAN, new PrintFieldDescendingFrontManServerCommand(collectionManager));
         commands.put(CommandType.SHOW_EVEN, new ShowEvenServerCommand(collectionManager));
         commands.put(CommandType.EXIT, new ExitServerCommand());
         commands.put(CommandType.HELP, new HelpServerCommand(commands));
-        commands.put(CommandType.INSERT, new InsertServerCommand(collectionManager, musicBandRepository, userRepository));
-        commands.put(CommandType.UPDATE, new UpdateServerCommand(collectionManager, musicBandRepository, userRepository));
-        commands.put(CommandType.REMOVE_LOWER, new RemoveLowerServerCommand(collectionManager, musicBandRepository, userRepository));
-        commands.put(CommandType.REPLACE_IF_GREATER, new ReplaceIfGreaterServerCommand(collectionManager, musicBandRepository, userRepository));
+        commands.put(CommandType.INSERT, new InsertServerCommand(collectionManager, musicBandRepository, authService));
+        commands.put(CommandType.UPDATE, new UpdateServerCommand(collectionManager, musicBandRepository, authService));
+        commands.put(CommandType.REMOVE_LOWER, new RemoveLowerServerCommand(collectionManager, musicBandRepository, authService));
+        commands.put(CommandType.REPLACE_IF_GREATER, new ReplaceIfGreaterServerCommand(collectionManager, musicBandRepository, authService));
         commands.put(CommandType.REGISTER, new RegisterServerCommand(userRepository));
         commands.put(CommandType.LOGIN, new LoginServerCommand(userRepository));
 

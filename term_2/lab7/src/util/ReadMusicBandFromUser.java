@@ -2,7 +2,7 @@ package util;
 
 import java.time.LocalDate;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import models.Color;
 import models.Coordinates;
 import models.MusicBand;
@@ -21,7 +21,7 @@ public class ReadMusicBandFromUser{
             if (name != null && !name.trim().isEmpty()) {
                 break;
             }
-            System.out.println(ErrorMessages.BAND_NAME_EMPTY);
+            System.out.println(Messages.BAND_NAME_EMPTY);
         }
 
         Integer x;
@@ -30,7 +30,7 @@ public class ReadMusicBandFromUser{
                 x = Integer.parseInt(InputProvider.readLine("Введите координату X: "));
                 break;
             } catch (NumberFormatException e) {
-                System.out.println(ErrorMessages.INPUT_COORDINATE_X);
+                System.out.println(Messages.INPUT_COORDINATE_X);
             }
         }
 
@@ -39,9 +39,9 @@ public class ReadMusicBandFromUser{
             try {
                 y = Double.parseDouble(InputProvider.readLine("Введите координату Y (<=525): "));
                 if (y <= 525) break;
-                else System.out.println(ErrorMessages.COORDINATE_Y_TOO_LARGE);
+                else System.out.println(Messages.COORDINATE_Y_TOO_LARGE);
             } catch (NumberFormatException e) {
-                System.out.println(ErrorMessages.INPUT_COORDINATE_Y);
+                System.out.println(Messages.INPUT_COORDINATE_Y);
             }
         }
 
@@ -52,9 +52,9 @@ public class ReadMusicBandFromUser{
             try {
                 participants = Integer.parseInt(InputProvider.readLine("Введите количество участников (>0): "));
                 if (participants > 0) break;
-                else System.out.println(ErrorMessages.PARTICIPANTS_INVALID);
+                else System.out.println(Messages.PARTICIPANTS_INVALID);
             } catch (NumberFormatException e) {
-                System.out.println(ErrorMessages.INPUT_PARTICIPANTS);
+                System.out.println(Messages.INPUT_PARTICIPANTS);
             }
         }
         
@@ -68,7 +68,7 @@ public class ReadMusicBandFromUser{
                 genre = MusicGenre.valueOf(InputProvider.readLine("Введите жанр: ").toUpperCase());
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println(ErrorMessages.INVALID_GENRE);
+                System.out.println(Messages.INVALID_GENRE);
             }
         }
 
@@ -76,7 +76,7 @@ public class ReadMusicBandFromUser{
         while (true) {
             frontName = InputProvider.readLine("Введите имя фронтмена: ");
             if (frontName != null && !frontName.trim().isEmpty()) break;
-            System.out.println(ErrorMessages.PERSON_NAME_EMPTY);
+            System.out.println(Messages.PERSON_NAME_EMPTY);
         }
 
         LocalDate birthday = null;
@@ -89,7 +89,7 @@ public class ReadMusicBandFromUser{
                 birthday = LocalDate.parse(birth);
                 break;
             } catch (Exception e) {
-                System.out.println(ErrorMessages.INVALID_DATE);
+                System.out.println(Messages.INVALID_DATE);
             }
         }
         
@@ -100,9 +100,9 @@ public class ReadMusicBandFromUser{
             try {
                 height = Long.parseLong(heightStr);
                 if (height > 0) break;
-                else System.out.println(ErrorMessages.HEIGHT_INVALID);
+                else System.out.println(Messages.HEIGHT_INVALID);
             } catch (NumberFormatException e) {
-                System.out.println(ErrorMessages.INPUT_HEIGHT);
+                System.out.println(Messages.INPUT_HEIGHT);
             }
         }
 
@@ -110,7 +110,7 @@ public class ReadMusicBandFromUser{
         while (true) {
             passport = InputProvider.readLine("Введите passportID: ");
             if (passport != null && !passport.trim().isEmpty()) break;
-            System.out.println(ErrorMessages.PASSPORT_EMPTY);
+            System.out.println(Messages.PASSPORT_EMPTY);
         }
 
         Color eyeColor = null;
@@ -122,7 +122,7 @@ public class ReadMusicBandFromUser{
                 eyeColor = Color.valueOf(colorStr.toUpperCase());
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println(ErrorMessages.INVALID_EYE_COLOR);
+                System.out.println(Messages.INVALID_EYE_COLOR);
             }
         }
 

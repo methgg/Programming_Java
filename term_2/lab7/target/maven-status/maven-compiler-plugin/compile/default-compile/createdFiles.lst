@@ -40,7 +40,6 @@ server/commands/CountGreaterThanNumberOfParticipantsServerCommand.class
 server/AuthService.class
 models/Coordinates.class
 server/ServerTcpApp.class
-exceptions/ErrorMessages.class
 client/commands/ReplaceIfGreaterCommandHandler.class
 server/commands/ServerCommand.class
 server/commands/HelpServerCommand.class
@@ -72,3 +71,4 @@ client/commands/InsertCommandHandler.class
 network/CommandResponse.class
 network/arguments/NumberOfParticipantsArgument.class
 client/commands/KeyCommandHandler.class
+exceptions/Messages.class

@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import network.CommandRequest;
 import network.CommandResponse;
 
@@ -84,21 +84,21 @@ public class ServerTcpApp {
                                         output.write(responseBytes);
                                         output.flush();
                                     } catch (IOException e) {
-                                        System.out.println(ErrorMessages.commandExecutionError(e.getMessage()));
+                                        System.out.println(Messages.commandExecutionError(e.getMessage()));
                                     } finally {
                                         try {
                                             clientSocket.close();
                                         } catch (IOException e) {
-                                            System.out.println(ErrorMessages.commandExecutionError(e.getMessage()));
+                                            System.out.println(Messages.commandExecutionError(e.getMessage()));
                                         }
                                     }
                                 });
                             } catch (Exception e) {
-                                System.out.println(ErrorMessages.commandExecutionError(e.getMessage()));
+                                System.out.println(Messages.commandExecutionError(e.getMessage()));
                                 try {
                                     clientSocket.close();
                                 } catch (IOException ioException) {
-                                    System.out.println(ErrorMessages.commandExecutionError(ioException.getMessage()));
+                                    System.out.println(Messages.commandExecutionError(ioException.getMessage()));
                                 }
                             }
                         });
@@ -106,14 +106,14 @@ public class ServerTcpApp {
                     } catch (SocketTimeoutException e) {
                         continue;
                     } catch (IOException | ClassNotFoundException e) {
-                        System.out.println(ErrorMessages.commandExecutionError(e.getMessage()));
+                        System.out.println(Messages.commandExecutionError(e.getMessage()));
                     }
                 }
             });
             readerThread.start();
             readerThread.join();
         } catch (IOException | InterruptedException e) {
-            System.out.println(ErrorMessages.commandExecutionError(e.getMessage()));
+            System.out.println(Messages.commandExecutionError(e.getMessage()));
         }   
     }
                     

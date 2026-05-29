@@ -3,7 +3,7 @@ package server.commands;
 import java.sql.SQLException;
 
 import database.UserRepository;
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import network.AuthData;
 import network.CommandRequest;
 import network.CommandResponse;
@@ -22,29 +22,29 @@ public class LoginServerCommand implements ServerCommand {
             AuthData authData = request.getAuthData();
 
             if (authData == null) {
-                return new CommandResponse(false, ErrorMessages.AUTH_DATA_MISSING, null);
+                return new CommandResponse(false, Messages.AUTH_DATA_MISSING, null);
             }
 
             String username = authData.getUsername();
             String password = authData.getPassword();
 
             if (username == null || username.isBlank()) {
-                return new CommandResponse(false, ErrorMessages.AUTH_USERNAME_EMPTY, null);
+                return new CommandResponse(false, Messages.AUTH_USERNAME_EMPTY, null);
             }
 
             if (password == null || password.isBlank()) {
-                return new CommandResponse(false, ErrorMessages.AUTH_PASSWORD_EMPTY, null);
+                return new CommandResponse(false, Messages.AUTH_PASSWORD_EMPTY, null);
             }
 
             String passwordHash = PasswordHasher.sha1(password);
 
             if (!userRepository.isValidUser(username, passwordHash)) {
-                return new CommandResponse(false, ErrorMessages.AUTH_INVALID, null);
+                return new CommandResponse(false, Messages.AUTH_INVALID, null);
             }
 
             return new CommandResponse(true, "Авторизация выполнена успешно.", null);
         } catch (SQLException e) {
-            return new CommandResponse(false, ErrorMessages.commandExecutionError(e.getMessage()), null);
+            return new CommandResponse(false, Messages.commandExecutionError(e.getMessage()), null);
         }
     }
 
