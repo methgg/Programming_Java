@@ -11,6 +11,15 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import java.util.Arrays;
+
+import javax.swing.SwingWorker;
+
+import network.AuthData;
+import network.CommandRequest;
+import network.CommandResponse;
+import network.CommandType;
+
 import client.RequestSender;
 
 public class LoginFrame extends JFrame{
@@ -48,8 +57,8 @@ public class LoginFrame extends JFrame{
         JButton loginButton = new JButton("Login");
         JButton registerButton = new JButton("Register");
 
-        loginButton.addActionListener(e -> openMainWindow());
-        registerButton.addActionListener(e -> openMainWindow());
+        loginButton.addActionListener(e -> authenticate(CommandType.LOGIN));
+        registerButton.addActionListener(e -> authenticate(CommandType.REGISTER));
 
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(loginButton);
@@ -64,10 +73,52 @@ public class LoginFrame extends JFrame{
         setContentPane(root);
     }
 
-    private void openMainWindow() {
+    private void authenticate(CommandType commandType) {
         String username = usernameField.getText().trim();
+        char[] passwordChars = passwordField.getPassword();
 
-        MainFrame mainFrame = new MainFrame(requestSender, username);
+        if (username.isBlank()) {
+            statusLabel.setText("Login is empty.");
+            return;
+        }
+
+        if (passwordChars.length == 0) {
+            statusLabel.setText("Password is empty.");
+            return;
+        }
+
+        String password = new String(passwordChars);
+        Arrays.fill(passwordChars, '\0');
+
+        statusLabel.setText("Connecting...");
+
+        new SwingWorker<CommandResponse, Void>() {
+            @Override
+            protected CommandResponse doInBackground() {
+                AuthData authData = new AuthData(username, password);
+                CommandRequest request = new CommandRequest(commandType, null, authData);
+                return requestSender.send(request);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    CommandResponse response = get();
+                    statusLabel.setText(response.getMessage());
+
+                    if (response.isSuccess()) {
+                        AuthData authData = new AuthData(username, password);
+                        openMainWindow(authData);
+                    }
+                } catch (Exception e) {
+                    statusLabel.setText("Connection error: " + e.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    private void openMainWindow(AuthData authData) {
+        MainFrame mainFrame = new MainFrame(requestSender, authData);
         mainFrame.setVisible(true);
         dispose();
     }
