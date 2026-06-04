@@ -32,7 +32,7 @@ public class DatabaseConfig {
             throw new IllegalStateException(Messages.DATABASE_PASSWORD_NOT_SET);
         }
 
-        return new DatabaseConfig(host, port, database, user, password);
+        return new DatabaseConfig(host, database, user, password, port);
     }
 
     private static String getEnvOrDefault(String name, String defaultValue) {

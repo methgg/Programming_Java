@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 
 import models.MusicBand;
+import network.CollectionElement;
 
 public class MusicBandRepository {
     private final DatabaseManager databaseManager;
@@ -52,6 +53,47 @@ public class MusicBandRepository {
         }
 
         return collection;
+    }
+
+    public LinkedHashMap<Long, CollectionElement> loadAllElementsWithOwners() throws SQLException {
+        LinkedHashMap<Long, CollectionElement> elements = new LinkedHashMap<>();
+
+        String sql = """
+                SELECT
+                    mb.id,
+                    mb.collection_key,
+                    mb.name,
+                    mb.coord_x,
+                    mb.coord_y,
+                    mb.creation_date,
+                    mb.number_of_participants,
+                    mb.genre,
+                    mb.front_man_name,
+                    mb.front_man_birthday,
+                    mb.front_man_height,
+                    mb.front_man_passport_id,
+                    mb.front_man_eye_color,
+                    mb.owner_id,
+                    u.username AS owner_username
+                FROM music_bands mb
+                JOIN users u ON mb.owner_id = u.id
+                ORDER BY mb.collection_key
+                """;
+
+        try (
+                Connection connection = databaseManager.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery()
+        ) {
+            while (resultSet.next()) {
+                Long key = resultSet.getLong("collection_key");
+                MusicBand musicBand = rowMapper.map(resultSet);
+                String ownerUsername = resultSet.getString("owner_username");
+                elements.put(key, new CollectionElement(key, musicBand, ownerUsername));
+            }
+        }
+
+        return elements;
     }
 
     public MusicBand insert(Long key, MusicBand musicBand, Long ownerId) throws SQLException {

@@ -35,7 +35,7 @@ public class ServerCommandManager {
                                 AuthService authService,
                                 UserRepository userRepository) {
         commands.put(CommandType.INFO, new InfoServerCommand(collectionManager));
-        commands.put(CommandType.SHOW, new ShowServerCommand(collectionManager));
+        commands.put(CommandType.SHOW, new ShowServerCommand(collectionManager, musicBandRepository));
         commands.put(CommandType.CLEAR, new ClearServerCommand(collectionManager, musicBandRepository, authService));
         commands.put(CommandType.COUNT_GREATER_THAN_NUMBER_OF_PARTICIPANTS, new CountGreaterThanNumberOfParticipantsServerCommand(collectionManager));
         commands.put(CommandType.REMOVE_KEY, new RemoveKeyServerCommand(collectionManager, musicBandRepository, authService));

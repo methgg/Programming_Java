@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +20,8 @@ import models.MusicGenre;
 import models.Person;
 
 public class MusicBandDialog extends JDialog {
+    private final Locale locale;
+
     private final JTextField nameField = new JTextField();
     private final JTextField xField = new JTextField();
     private final JTextField yField = new JTextField();
@@ -34,14 +37,19 @@ public class MusicBandDialog extends JDialog {
     private MusicBand result;
 
     public MusicBandDialog(java.awt.Frame owner, String title, MusicBand initialBand) {
+        this(owner, title, initialBand, GuiResources.EN_IN);
+    }
+
+    public MusicBandDialog(java.awt.Frame owner, String title, MusicBand initialBand, Locale locale) {
         super(owner, title, true);
+        this.locale = locale;
 
         eyeColorBox.addItem(null);
         for (Color color : Color.values()) {
             eyeColorBox.addItem(color);
         }
 
-        setSize(460, 420);
+        setSize(500, 430);
         setLocationRelativeTo(owner);
 
         initUi();
@@ -56,40 +64,40 @@ public class MusicBandDialog extends JDialog {
 
         JPanel formPanel = new JPanel(new GridLayout(10, 2, 6, 6));
 
-        formPanel.add(new JLabel("Name:"));
+        formPanel.add(new JLabel(t("field.name") + ":"));
         formPanel.add(nameField);
 
-        formPanel.add(new JLabel("X:"));
+        formPanel.add(new JLabel(t("field.x") + ":"));
         formPanel.add(xField);
 
-        formPanel.add(new JLabel("Y:"));
+        formPanel.add(new JLabel(t("field.y") + ":"));
         formPanel.add(yField);
 
-        formPanel.add(new JLabel("Participants:"));
+        formPanel.add(new JLabel(t("field.participants") + ":"));
         formPanel.add(participantsField);
 
-        formPanel.add(new JLabel("Genre:"));
+        formPanel.add(new JLabel(t("field.genre") + ":"));
         formPanel.add(genreBox);
 
-        formPanel.add(new JLabel("Front man name:"));
+        formPanel.add(new JLabel(t("field.frontManName") + ":"));
         formPanel.add(frontManNameField);
 
-        formPanel.add(new JLabel("Birthday (yyyy-mm-dd):"));
+        formPanel.add(new JLabel(t("field.birthday") + ":"));
         formPanel.add(birthdayField);
 
-        formPanel.add(new JLabel("Height:"));
+        formPanel.add(new JLabel(t("field.height") + ":"));
         formPanel.add(heightField);
 
-        formPanel.add(new JLabel("Passport:"));
+        formPanel.add(new JLabel(t("field.passport") + ":"));
         formPanel.add(passportField);
 
-        formPanel.add(new JLabel("Eye color:"));
+        formPanel.add(new JLabel(t("field.eyeColor") + ":"));
         formPanel.add(eyeColorBox);
 
         root.add(formPanel, BorderLayout.CENTER);
 
-        JButton okButton = new JButton("OK");
-        JButton cancelButton = new JButton("Cancel");
+        JButton okButton = new JButton(t("ok"));
+        JButton cancelButton = new JButton(t("cancel"));
 
         okButton.addActionListener(e -> submit());
         cancelButton.addActionListener(e -> {
@@ -161,7 +169,7 @@ public class MusicBandDialog extends JDialog {
             JOptionPane.showMessageDialog(
                     this,
                     e.getMessage(),
-                    "Input error",
+                    t("input.error"),
                     JOptionPane.ERROR_MESSAGE
             );
         }
@@ -169,5 +177,9 @@ public class MusicBandDialog extends JDialog {
 
     public MusicBand getResult() {
         return result;
+    }
+
+    private String t(String key) {
+        return GuiResources.get(locale, key);
     }
 }
