@@ -7,10 +7,12 @@ public class CommandRequest implements Serializable {
 
     private final CommandType commandType;
     private final Serializable argument;
+    private final AuthData authData;
 
-    public CommandRequest(CommandType commandType, Serializable argument){
+    public CommandRequest(CommandType commandType, Serializable argument, AuthData authData){
         this.commandType = commandType;
         this.argument = argument;
+        this.authData = authData;
     }
 
     public CommandType getCommandType() {
@@ -20,5 +22,9 @@ public class CommandRequest implements Serializable {
     public Serializable getArgument() {
         return argument;
     } 
+
+    public AuthData getAuthData() {
+        return authData;
+    }
 
 }

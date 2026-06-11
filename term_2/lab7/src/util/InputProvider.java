@@ -2,7 +2,7 @@ package util;
 
 import java.util.Scanner;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 
 /**
  * Класс для установки сканнера
@@ -21,7 +21,7 @@ public final class InputProvider {
     public static Scanner getScanner() {
         Scanner sc = CURRENT.get();
         if (sc == null) {
-            throw new IllegalStateException(ErrorMessages.scannerNotInitialized());
+            throw new IllegalStateException(Messages.scannerNotInitialized());
 
         }
         return sc;
@@ -43,7 +43,7 @@ public final class InputProvider {
         try {
             return ConsoleReader.readLine(prompt);
         } catch (Exception e) {
-            throw new RuntimeException(ErrorMessages.inputReadError(e.getMessage()), e);
+            throw new RuntimeException(Messages.inputReadError(e.getMessage()), e);
         }
     }
 

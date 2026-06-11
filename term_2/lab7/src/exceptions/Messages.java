@@ -3,8 +3,8 @@ package exceptions;
 /**
  * Класс, содержащий сообщения команд
  */
-public final class ErrorMessages {
-    private ErrorMessages() {
+public final class Messages {
+    private Messages() {
     }
 
     public static final String UNKNOWN_COMMAND = "Команда не найдена. Введите help.";
@@ -18,6 +18,7 @@ public final class ErrorMessages {
     public static final String INSERT_PARSE_ERROR = "Не удалось разобрать объект MusicBand из JSON.";
     public static final String ELEMENT_ADDED = "Элемент успешно добавлен.";
     public static final String ELEMENT_REPLACED = "Элемент заменен.";
+    public static final String DUPLICATE_COLLECTION_KEY = "Элемент с таким ключом уже существует.";
     public static final String NEW_ELEMENT_NOT_GREATER = "Новый элемент не больше старого. Замена не выполнена.";
     public static final String REMOVE_LOWER_DONE = "Все элементы меньше заданного удалены.";
     public static final String INVALID_KEY = "Ключ должен быть целым числом.";
@@ -45,6 +46,29 @@ public final class ErrorMessages {
     public static final String INPUT_COORDINATE_Y = "Координата Y должна быть числом.";
     public static final String INPUT_PARTICIPANTS = "Количество участников должно быть целым числом.";
     public static final String INPUT_HEIGHT = "Рост должен быть числом.";
+    public static final String DATABASE_USER_NOT_SET = "Не задан пользователь БД: DB_USER или USER.";
+    public static final String DATABASE_PASSWORD_NOT_SET = "Не задан пароль БД: DB_PASSWORD.";
+    public static final String DATABASE_CONNECTION_INVALID = "Соединение с БД не прошло проверку.";
+    public static final String DATABASE_CONNECTED = "Подключение к БД установлено.";
+    public static final String DATABASE_SCHEMA_INITIALIZED = "Схема базы данных инициализирована.";
+    public static final String COLLECTION_LOADED_FROM_DATABASE = "Коллекция загружена из базы данных.";
+    public static final String CREATION_DATE_NULL = "Дата создания не может быть null.";
+    public static final String AUTH_REQUIRED = "Требуется авторизация.";
+    public static final String AUTH_INVALID = "Неверный логин или пароль.";
+    public static final String AUTH_DATA_MISSING = "Не переданы данные авторизации.";
+    public static final String AUTH_USERNAME_EMPTY = "Логин не может быть пустым.";
+    public static final String AUTH_PASSWORD_EMPTY = "Пароль не может быть пустым.";
+    public static final String ACCESS_DENIED = "Недостаточно прав для изменения чужого объекта.";
+    public static final String OWNED_ELEMENTS_CLEARED = "Все принадлежащие вам элементы удалены.";
+    public static final String OWNED_ELEMENTS_GREATER_KEYS_REMOVED = "Удалены ваши элементы с ключами больше заданного.";
+    public static final String OWNED_ELEMENTS_LOWER_REMOVED = "Удалены ваши элементы, меньшие заданного.";
+    public static final String NO_OWNED_ELEMENTS_TO_REMOVE = "У вас нет подходящих элементов для удаления.";
+
+
+
+
+
+
 
     public static String commandError(String commandName, String details) {
         return "Ошибка команды " + commandName + ": " + details;
@@ -136,6 +160,13 @@ public final class ErrorMessages {
     public static String serverUnavailable(String details) {
         return "Сервер временно недоступен: " + details;
     }
+    public static String serverStartupError(String details) {
+        return "Ошибка запуска сервера: " + details;
+    }
+    public static String databaseReadError(String details) {
+        return "Ошибка чтения из базы данных: " + details;
+    }
+
 
 
 }

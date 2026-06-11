@@ -13,12 +13,14 @@ public class InfoServerCommand implements ServerCommand {
 
     @Override 
     public CommandResponse execute(CommandRequest request){
-        String message = "=== Информация о коллекции ===\n"
+        return collectionManager.withReadLock(() -> {
+            String message = "=== Информация о коллекции ===\n"
                 + "Тип коллекции: " + collectionManager.getCollection().getClass().getSimpleName() + "\n"
                 + "Дата инициализации коллекции: " + collectionManager.getInitializationDate() + "\n"
                 + "Количество элементов: " + collectionManager.size();
 
-        return new CommandResponse(true, message, null);
+            return new CommandResponse(true, message, null);
+        });
     }
 
     @Override

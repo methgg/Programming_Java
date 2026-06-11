@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 
 
 public class ConsoleReader{
@@ -64,7 +64,7 @@ public class ConsoleReader{
 
     private static void runStty(String args) throws IOException, InterruptedException {
         Process p = new ProcessBuilder("sh", "-c", "stty " + args + " < /dev/tty").start();
-        if (p.waitFor() != 0) throw new IOException(ErrorMessages.terminalSetupError(args));
+        if (p.waitFor() != 0) throw new IOException(Messages.terminalSetupError(args));
 
     }
     }

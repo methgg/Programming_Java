@@ -11,90 +11,113 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
-import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 
-import exceptions.ErrorMessages;
-import manager.CollectionManager;
+import exceptions.Messages;
 import network.CommandRequest;
 import network.CommandResponse;
-import util.JsonUtil;
+
+
 
 public class ServerTcpApp {
     private final ServerCommandProcessor serverCommandProcessor;
     private final int port;
-    private final CollectionManager collectionManager;
-    private final String filename;
-    private final Scanner scanner = new Scanner(System.in);
 
-
-    public ServerTcpApp(ServerCommandProcessor serverCommandProcessor, int port, CollectionManager collectionManager, String filename) {
+    public ServerTcpApp(ServerCommandProcessor serverCommandProcessor, int port) {
         this.serverCommandProcessor = serverCommandProcessor;
         this.port = port;
-        this.collectionManager = collectionManager;
-        this.filename = filename;
     }
+
 
 
     public void start() {
         try(ServerSocket serverSocket = new ServerSocket(port)) {
+            ExecutorService requestExecutor = Executors.newCachedThreadPool();
+            ForkJoinPool responseExecutor = new ForkJoinPool();
+
             serverSocket.setSoTimeout(200);
 
             System.out.println("Сервер слушает порт " + port + ".");
 
-            while (true) {
-                if (filename != null && !filename.isBlank() && System.in.available() > 0) {
-                    String line = scanner.nextLine().trim();
+            Thread readerThread = new Thread(() -> {
+                while (true) {
+                    try {
+                        Socket clientSocket = serverSocket.accept();
+                        System.out.println("Клиент подключен.");
 
-                    if (line.equals("save")) {
-                        JsonUtil.writeToFile(filename, collectionManager.getCollection());
-                        System.out.println(ErrorMessages.savedToFile(filename));
-                    }
-                }
-                try {
-                    Socket clientSocket = serverSocket.accept();
-                    System.out.println("Клиент подключен.");
+                        byte[] requestBytes;
 
-                    try (
-                            InputStream input = clientSocket.getInputStream();
-                            OutputStream output = clientSocket.getOutputStream()
-                    ) {
+                        InputStream input = clientSocket.getInputStream();
                         byte[] lengthBytes = input.readNBytes(Integer.BYTES);
                         if (lengthBytes.length < Integer.BYTES) {
+                            clientSocket.close();
                             continue;
                         }
 
                         int requestLength = ByteBuffer.wrap(lengthBytes).getInt();
-                        byte[] requestBytes = input.readNBytes(requestLength);
+                        requestBytes = input.readNBytes(requestLength);
 
                         if (requestBytes.length < requestLength) {
+                            clientSocket.close();
                             continue;
-                        }
-
+                        }              
+                        
+                        
                         CommandRequest request = deserializeRequest(requestBytes);
-                        CommandResponse response = serverCommandProcessor.process(request);
 
-                        byte[] responseBytes = serializeResponse(response);
+                        requestExecutor.submit(() -> {
+                            try {
+                                CommandResponse response = serverCommandProcessor.process(request);
 
-                        ByteBuffer responseLengthBuffer = ByteBuffer.allocate(Integer.BYTES);
-                        responseLengthBuffer.putInt(responseBytes.length);
-                        output.write(responseLengthBuffer.array());
-                        output.write(responseBytes);
-                        output.flush();
+                                responseExecutor.execute(() -> {
+                                    try {
+                                        byte[] responseBytes = serializeResponse(response);
 
-                    } catch (ClassNotFoundException e) {
-                        System.out.println(ErrorMessages.commandExecutionError(e.getMessage()));
-                    } finally {
-                        clientSocket.close();
+                                        OutputStream output = clientSocket.getOutputStream();
+
+                                        ByteBuffer responseLengthBuffer = ByteBuffer.allocate(Integer.BYTES);
+                                        responseLengthBuffer.putInt(responseBytes.length);
+
+                                        output.write(responseLengthBuffer.array());
+                                        output.write(responseBytes);
+                                        output.flush();
+                                    } catch (IOException e) {
+                                        System.out.println(Messages.commandExecutionError(e.getMessage()));
+                                    } finally {
+                                        try {
+                                            clientSocket.close();
+                                        } catch (IOException e) {
+                                            System.out.println(Messages.commandExecutionError(e.getMessage()));
+                                        }
+                                    }
+                                });
+                            } catch (Exception e) {
+                                System.out.println(Messages.commandExecutionError(e.getMessage()));
+                                try {
+                                    clientSocket.close();
+                                } catch (IOException ioException) {
+                                    System.out.println(Messages.commandExecutionError(ioException.getMessage()));
+                                }
+                            }
+                        });
+                        
+                    } catch (SocketTimeoutException e) {
+                        continue;
+                    } catch (IOException | ClassNotFoundException e) {
+                        System.out.println(Messages.commandExecutionError(e.getMessage()));
                     }
-                              
-                } catch (SocketTimeoutException e) {
-                    continue;
                 }
-            }
-        } catch (IOException e) {
-            System.out.println(ErrorMessages.commandExecutionError(e.getMessage()));
-        }
+            });
+            readerThread.start();
+            readerThread.join();
+        } catch (IOException | InterruptedException e) {
+            System.out.println(Messages.commandExecutionError(e.getMessage()));
+        }   
     }
+                    
+
 
     private CommandRequest deserializeRequest(byte[] data) throws IOException, ClassNotFoundException {
         try (ObjectInputStream objectStream = new ObjectInputStream(new ByteArrayInputStream(data))) {

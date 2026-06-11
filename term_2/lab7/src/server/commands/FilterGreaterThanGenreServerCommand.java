@@ -2,7 +2,7 @@ package server.commands;
 
 import java.util.stream.Collectors;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import manager.CollectionManager;
 import models.MusicBand;
 import models.MusicGenre;
@@ -17,20 +17,22 @@ public class FilterGreaterThanGenreServerCommand implements ServerCommand {
 
     @Override
     public CommandResponse execute(CommandRequest request) {
-        try {
-            GenreArgument argument = (GenreArgument) request.getArgument();
-            MusicGenre genre = argument.getGenre();
-            String message = cm.getCollection().values().stream()
-                    .filter(b -> b.getGenre().ordinal() > genre.ordinal())
-                    .map(MusicBand::toString)
-                    .collect(Collectors.joining("\n"));
-            if (message.isEmpty()) {
-                message = ErrorMessages.COLLECTION_EMPTY;
+        return cm.withReadLock(() -> {
+            try {
+                GenreArgument argument = (GenreArgument) request.getArgument();
+                MusicGenre genre = argument.getGenre();
+                String message = cm.getCollection().values().stream()
+                        .filter(b -> b.getGenre().ordinal() > genre.ordinal())
+                        .map(MusicBand::toString)
+                        .collect(Collectors.joining("\n"));
+                if (message.isEmpty()) {
+                    message = Messages.COLLECTION_EMPTY;
+                }
+                return new CommandResponse(true, message, null);
+            } catch (ClassCastException | NullPointerException e) {
+                return new CommandResponse(false, Messages.commandError("filter_greater_than_genre", Messages.INVALID_GENRE), null);
             }
-            return new CommandResponse(true, message, null);
-        } catch (ClassCastException | NullPointerException e) {
-          return new CommandResponse(false, ErrorMessages.commandError("filter_greater_than_genre", ErrorMessages.INVALID_GENRE), null);
-        }
+        });
     }
     @Override 
     public String getDescription(){

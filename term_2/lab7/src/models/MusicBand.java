@@ -3,7 +3,7 @@ package models;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import exceptions.ValidationException;
 import util.IdGenerator;
 import util.JsonUtil;
@@ -19,38 +19,51 @@ public class MusicBand implements Comparable<MusicBand>, Serializable {
     private Person frontMan; //Поле не может быть null
 
     public MusicBand(String name, Coordinates coordinates, Integer numberOfParticipants, MusicGenre genre, Person frontMan) {
+        this(IdGenerator.generateId(), name, coordinates, LocalDateTime.now(), numberOfParticipants, genre, frontMan);
+    }
+
+    public MusicBand(Long id, String name, Coordinates coordinates, LocalDateTime creationDate, Integer numberOfParticipants, MusicGenre genre, Person frontMan) {
         if (name == null) {
-            throw new ValidationException(ErrorMessages.BAND_NAME_NULL);
+            throw new ValidationException(Messages.BAND_NAME_NULL);
         }
 
         if (name.equals("")) {
-            throw new ValidationException(ErrorMessages.BAND_NAME_EMPTY);
+            throw new ValidationException(Messages.BAND_NAME_EMPTY);
         }
 
         if (coordinates == null) {
-            throw new ValidationException(ErrorMessages.COORDINATES_NULL);
+            throw new ValidationException(Messages.COORDINATES_NULL);
         }
+
         if (numberOfParticipants == null || numberOfParticipants <= 0) {
-            throw new ValidationException(ErrorMessages.PARTICIPANTS_INVALID);
+            throw new ValidationException(Messages.PARTICIPANTS_INVALID);
         }
 
         if (genre == null) {
-            throw new ValidationException(ErrorMessages.GENRE_NULL);
+            throw new ValidationException(Messages.GENRE_NULL);
         }
 
         if (frontMan == null) {
-            throw new ValidationException(ErrorMessages.FRONTMAN_NULL);
+            throw new ValidationException(Messages.FRONTMAN_NULL);
         }
 
-        this.id = IdGenerator.generateId();
-        this.creationDate = LocalDateTime.now();
+        if (id == null || id <= 0) {
+            throw new ValidationException(Messages.INVALID_ID);
+        }
 
+        if (creationDate == null) {
+            throw new ValidationException(Messages.CREATION_DATE_NULL);
+        }
+
+        this.id = id;
+        this.creationDate = creationDate;
         this.name = name;
         this.coordinates = coordinates;
         this.numberOfParticipants = numberOfParticipants;
         this.genre = genre;
         this.frontMan = frontMan;
-        }
+    }
+
 
         @Override
         public int compareTo(MusicBand other) {

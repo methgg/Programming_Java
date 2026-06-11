@@ -3,7 +3,7 @@ package server.commands;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import manager.CollectionManager;
 import models.MusicBand;
 import models.Person;
@@ -19,20 +19,22 @@ public class PrintFieldDescendingFrontManServerCommand implements ServerCommand 
 
     @Override
     public CommandResponse execute(CommandRequest request) {
-        String message = cm.getCollection().values().stream()
-                .map(MusicBand::getFrontMan)
-                .sorted(Comparator.comparing(
-                        Person::getName,
-                        Comparator.nullsLast(String::compareTo)
-                ).reversed())
-                .map(Person::toString)
-                .collect(Collectors.joining("\n"));
+        return cm.withReadLock(() -> {
+            String message = cm.getCollection().values().stream()
+                    .map(MusicBand::getFrontMan)
+                    .sorted(Comparator.comparing(
+                            Person::getName,
+                            Comparator.nullsLast(String::compareTo)
+                    ).reversed())
+                    .map(Person::toString)
+                    .collect(Collectors.joining("\n"));
 
-        if (message.isEmpty()) {
-            message = ErrorMessages.COLLECTION_EMPTY;
-        }
+            if (message.isEmpty()) {
+                message = Messages.COLLECTION_EMPTY;
+            }
 
-        return new CommandResponse(true, message, null);
+            return new CommandResponse(true, message, null);
+        });
     }
 
     @Override

@@ -1,6 +1,6 @@
 package server.commands;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import manager.CollectionManager;
 import network.CommandRequest;
 import network.CommandResponse;
@@ -14,17 +14,17 @@ public class CountGreaterThanNumberOfParticipantsServerCommand implements Server
     }
     @Override 
     public CommandResponse execute(CommandRequest request) {
-        try {
-            NumberOfParticipantsArgument argument = (NumberOfParticipantsArgument) request.getArgument();
-            int number = argument.getNumberOfParticipants();
-            long count = collectionManager.getCollection().values().stream().filter(band -> band.getNumberOfParticipants() > number).count();
+        return collectionManager.withReadLock(() -> {
+            try {
+                NumberOfParticipantsArgument argument = (NumberOfParticipantsArgument) request.getArgument();
+                int number = argument.getNumberOfParticipants();
+                long count = collectionManager.getCollection().values().stream().filter(band -> band.getNumberOfParticipants() > number).count();
 
-            return new CommandResponse(true, ErrorMessages.countGreaterThanParticipants(number, count), null);
-            
-        } catch (ClassCastException | NullPointerException e) {
-            return new CommandResponse(false, ErrorMessages.commandError("count_greater_than_number_of_participants", ErrorMessages.INVALID_NUMBER), null);
-
-        }
+                return new CommandResponse(true, Messages.countGreaterThanParticipants(number, count), null);
+            } catch (ClassCastException | NullPointerException e) {
+                return new CommandResponse(false, Messages.commandError("count_greater_than_number_of_participants", Messages.INVALID_NUMBER), null);
+            }
+        });
     }
     @Override 
     public String getDescription() {
@@ -32,5 +32,3 @@ public class CountGreaterThanNumberOfParticipantsServerCommand implements Server
         
     }
 }
-
-

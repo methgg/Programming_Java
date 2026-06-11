@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-import exceptions.ErrorMessages;
+import exceptions.Messages;
 import exceptions.ValidationException;
 
 public class Coordinates implements Serializable {
@@ -12,15 +12,15 @@ public class Coordinates implements Serializable {
 
     public Coordinates(Integer x, Double y){
         if (x == null) {
-            throw new ValidationException(ErrorMessages.COORDINATE_X_NULL);
+            throw new ValidationException(Messages.COORDINATE_X_NULL);
         }
 
         if (y == null) {
-            throw new ValidationException(ErrorMessages.COORDINATE_Y_NULL);
+            throw new ValidationException(Messages.COORDINATE_Y_NULL);
         }
 
         if (y > 525) {
-            throw new ValidationException(ErrorMessages.COORDINATE_Y_TOO_LARGE);
+            throw new ValidationException(Messages.COORDINATE_Y_TOO_LARGE);
         }
 
         this.x = x;
